@@ -30,10 +30,7 @@
 					elseif($requete->num_rows == 1){
 						$requete->bind_result($session);
 						$requete->fetch();
-						echo "test";
-						echo $session;
 						if($requete = $bdd->prepare("SELECT est_en_cours,est_fini FROM session WHERE session.id_session = ?")){
-							echo "test";
 							$requete->bind_param("i",$session);
 							$requete->execute();
 							$requete->store_result();
