@@ -8,6 +8,7 @@
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
+    var_dump($_POST);
     
     if(isset($_POST["nom_sujet"]) && isset($_POST["date_session"])){
         if($_POST["nom_sujet"] == ""){
@@ -38,7 +39,15 @@
                 if($requete = $bdd->prepare("INSERT INTO session (date_session,id_sujet) VALUES (?,?)")){
                     $requete->bind_param("si",$_POST["date_session"],$sujetid);
                     $requete->execute();
-                    header("Location: creation_session.php");
+                    $sessionid = $requete->insert_id;
+                    for($i=0 ; $i < count($_POST["groupes"]) ; $i++){    
+                        if($requete = $bdd->prepare("INSERT INTO participe (id_grp,id_session) VALUES (?,?)")){
+                            $requete->bind_param("ii",strval($_POST["groupes"][$i]),$sessionid);
+                            $requete->execute();
+                        }
+                    }
+                    header("Location: page_accueil.php");
+                    exit;
                 }
             }
         }

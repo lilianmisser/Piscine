@@ -23,7 +23,6 @@
 					$requete->bind_param("is",$sujetid,$current_date);
 					$requete->execute();
 					$requete->store_result();
-					echo("way");
 					if($requete->num_rows == 0){
 						header("Location: connection_session.php?erreur=Aucune session prévu aujourd'hui");
             			exit;	
@@ -31,9 +30,28 @@
 					elseif($requete->num_rows == 1){
 						$requete->bind_result($session);
 						$requete->fetch();
-						$_SESSION["id_session"] = $session;
-						header("Location: reponse_sujet.php");
-            			exit;
+						echo "test";
+						echo $session;
+						if($requete = $bdd->prepare("SELECT est_en_cours,est_fini FROM session WHERE session.id_session = ?")){
+							echo "test";
+							$requete->bind_param("i",$session);
+							$requete->execute();
+							$requete->store_result();
+							$requete->bind_result($running,$finished);
+							$requete->fetch();
+							if($finished){
+								header("Location: connection_session.php?erreur=Session déjà effectué");
+            					exit;
+							}
+							elseif($running){
+								header("Location: questions.php");
+            					exit;
+							}
+							else{
+								header("Location: connection_session.php?erreur=Session en attente de lancement");
+            					exit;
+							}
+						}
 					}
 				}
 			}

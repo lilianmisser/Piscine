@@ -1,3 +1,31 @@
+<?php
+	include("connectbdd.php");
+	
+	//fonction créer par @Sophivorus
+	//celle-çi permet de récupérer dans un tableau le résultat d'une requête préparée
+	function get_result(\mysqli_stmt $statement){
+	    $result = array();
+	    $statement->store_result();
+	    for ($i = 0; $i < $statement->num_rows; $i++)
+	    {
+	        $metadata = $statement->result_metadata();
+	        $params = array();
+	        while ($field = $metadata->fetch_field())
+	        {
+	            $params[] = &$result[$i][$field->name];
+	        }
+	        call_user_func_array(array($statement, 'bind_result'), $params);
+	        $statement->fetch();
+	    }
+	    return $result;
+	}
+
+	if($requete = $bdd->prepare("SELECT id_spe FROM specialite")){
+		$requete->execute();
+		$tab = get_result($requete);
+	}
+	$bdd->close();	
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,23 +56,13 @@
 		Insérez specialite et année
 		<br>
 		<select name="specialite_et_annee">
-			<option value="IG3">IG3</option>
-			<option value="IG4">IG4</option>
-			<option value="IG5">IG5</option>
-			<option value="MEA3">MEA3</option>
-			<option value="MEA4">MEA4</option>
-			<option value="MEA5">MEA5</option>
-			<option value="GBA3">GBA3</option>
-			<option value="GBA4">GBA4</option>
-			<option value="GBA5">GBA5</option>
-			<option value="MI3">MI3</option>
-			<option value="MI4">MI4</option>
-			<option value="MI5">MI5</option>
-			<option value="STE3">STE3</option>
-			<option value="STE4">STE4</option>
-			<option value="STE5">STE5</option>
-			<option value="PEIP1">PEIP1</option>
-			<option value="PEIP2">PEIP2</option>
+			<?php
+				for($i=0 ; $i < count($tab) ; $i++){
+			?>
+			<option value="<?php echo($tab[$i]["id_spe"]) ?>"><?php echo($tab[$i]["id_spe"]); ?></option>
+			<?php
+				}
+			?>
 		</select>
 		<br>
 		Insérez mdp
