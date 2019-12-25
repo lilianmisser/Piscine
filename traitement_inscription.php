@@ -1,5 +1,29 @@
 <?php 
 	include("connectbdd.php") ;
+	//fonction créer par @Sophivorus
+	//celle-çi permet de récupérer dans un tableau le résultat d'une requête préparée
+	function get_result(\mysqli_stmt $statement){
+	    $result = array();
+	    $statement->store_result();
+	    for ($i = 0; $i < $statement->num_rows; $i++)
+	    {
+	        $metadata = $statement->result_metadata();
+	        $params = array();
+	        while ($field = $metadata->fetch_field())
+	        {
+	            $params[] = &$result[$i][$field->name];
+	        }
+	        call_user_func_array(array($statement, 'bind_result'), $params);
+	        $statement->fetch();
+	    }
+	    return $result;
+	}
+
+	if($requete = $bdd->prepare("SELECT id_spe FROM specialite")){
+		$requete->execute();
+		$tab = get_result($requete);
+	}
+
 	if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['mail']) && isset($_POST['specialite_et_annee']) && isset($_POST['mdp']) && isset($_POST['groupe_niveau']) ) {
 //Partie test des formulaires
 		if ($_POST["nom"] == "" or $_POST['prenom'] == "" or $_POST['mail'] == "" or $_POST["specialite_et_annee"] == "" or $_POST["mdp"] == "" or $_POST["groupe_niveau"] == ""){
@@ -35,11 +59,11 @@
 			exit;
 		}
 
-		$specialite = array("IG3","IG4","IG5","MEA3","MEA4","MEA5","MI3","MI4","MI5","GBA3","GBA4","GBA5","STE3","STE4","STE5","PEIP1","PEIP2");
+		$specialite = $tab;
 		$i = 0;
 		$correspondance_specialite = false;
 		while (!$correspondance_specialite and $i < count($specialite)){
-			if($_POST['specialite_et_annee'] == $specialite[$i]){
+			if($_POST['specialite_et_annee'] == $specialite[$i]["id_spe"]){
 				$correspondance_specialite = true;
 			}
 			else{

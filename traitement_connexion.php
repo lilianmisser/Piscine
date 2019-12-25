@@ -14,7 +14,7 @@
 					exit;
 				}
 				elseif ($requete->num_rows==1){
-					if (password_verify($_POST['mdp'],$mdp)){
+					if(password_verify($_POST['mdp'],$mdp)){
 						session_start();
 						$_SESSION['user_id'] = $userid;
 						$_SESSION['user_firstname'] = $firstname;

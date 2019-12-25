@@ -1,3 +1,22 @@
+<?php
+    include("connectbdd.php");
+    session_start();
+    if(!(isset($_SESSION['user_id']))){
+        header("Location: page_connexion.php");
+        exit;
+    }
+    include("connectbdd.php");
+    if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){
+        $requete->bind_param("i",$_SESSION["user_id"]);
+        $requete->execute();
+        $requete->store_result();
+        $requete->bind_result($admin);
+        $requete->fetch();
+    }
+    if(!$admin){
+        header("Location: page_accueil.php")
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
