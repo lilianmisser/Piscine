@@ -36,7 +36,7 @@
 	    }
 	    return $result;
 	}
-	//TO DO : probleme avec le array push à fix
+
 	if($requete =$bdd->prepare("SELECT * FROM session")){
 		$requete->execute();
 		$sessions = get_result($requete);
@@ -44,16 +44,16 @@
 		$sessions_running = array();
 		for($i=0;$i<count($sessions);$i++){
 			if($sessions[$i]["est_en_cours"] and !$sessions[$i]["est_fini"]){
-				echo($sessions[$i]["id_session"]);
-				$sessions_running = array_push($sessions_running,$sessions[$i]["id_session"]);
+				array_push($sessions_running , $sessions[$i]["id_session"]);
 			}
 			elseif(!$sessions[$i]["est_en_cours"] and !$sessions[$i]["est_fini"]){
-				$sessions_just_created = array_push($sessions_just_created,$sessions[$i]["id_session"]);
+				array_push($sessions_just_created,$sessions[$i]["id_session"]);
 			}
 		}
 	}
 	var_dump($sessions_running);
 	print_r($sessions_just_created);
+	#TO DO : recuperation des sessions juste crées et de celles en cours, il faut maintenant les traiter
 ?>
 <!DOCTYPE html>
 <html>
