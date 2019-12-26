@@ -14,7 +14,8 @@
         $requete->fetch();
     }
     if(!$admin){
-        header("Location: page_accueil.php")
+        header("Location: page_accueil.php");
+        exit;
     }
 ?>
 <!DOCTYPE html>

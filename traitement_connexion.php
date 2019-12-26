@@ -38,5 +38,9 @@
 		}
 	
 	}
+	else{
+		header("Location: page_accueil.php");
+		exit;
+	}
 	$bdd->close();
 ?>

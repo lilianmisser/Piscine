@@ -1,11 +1,11 @@
 <?php
 	include("connectbdd.php");
-    #TO DO : Il faut que ce soit accessible seulement aux admins (rajouter un isAdmin?)
     $taille_toeic = 200;
     $correct = true;
     
     if(!(isset($_POST["nom_sujet"])) and $_POST["nom_sujet"] == ""){
-    	$correct = false;
+    	header("Location: page_accueil.php");
+        exit;
     }
     
     for ($i=1 ; $i <= $taille_toeic ; $i++) {
