@@ -75,6 +75,8 @@
 	<title>Connection session toeic</title>
 </head>
 <body>
+	<a href = "page_accueil.php">Accueil</a>
+	<br>
 	Voici les sessions qui vous sont disponibles
 	<br>
 	<?php

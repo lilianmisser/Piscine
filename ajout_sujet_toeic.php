@@ -21,9 +21,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Ajout sujet toeic</title>
 </head>
 <body>
+    <a href = "page_accueil.php">Accueil</a>
+    <br>
 	Bonjour admin ! Veuillez rentrer un nom et toutes les réponses à votre sujet toeic pour en créer un nouveau.
 	<br>
     <strong>

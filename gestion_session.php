@@ -61,6 +61,8 @@
 	<title>Gestion des sessions</title>
 </head>
 <body>
+	<a href = "page_accueil.php">Accueil</a>
+	<br>
 	Sessions en cours :
 	<br>
 	<?php

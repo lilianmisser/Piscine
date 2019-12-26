@@ -49,6 +49,8 @@
 	<title>Création session</title>
 </head>
 <body>
+	<a href = "page_accueil.php">Accueil</a>
+	<br>
 	Veuillez insérez les différentes informations suivantes pour créer une session :
 	<br>
 	<strong>
