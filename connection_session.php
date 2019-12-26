@@ -68,7 +68,7 @@
 	}
 	$bdd->close();
  ?>
-
+<!-- TO DO : vérifier si le form a bien une valeur dans la cible -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +84,8 @@
 	<form method="post" action="questions_toeic.php">
 		Session dispo de code : <?php echo($sessions_available[$i]) ?>
 		<br>
-		<input type="submit" value="Rejoindre" name="<?php echo($sessions_available[$i])?>">
+		<input type="hidden" name="id_session" value="<?php echo($sessions_available[$i])?>">
+		<input type="submit" value="Rejoindre">	
 		<br>
 	</form>
 	<?php

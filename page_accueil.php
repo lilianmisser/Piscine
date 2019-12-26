@@ -20,7 +20,7 @@
 	<title>Accueil</title>
 </head>
 <body>
-	bienvenue sur la page d'accueil
+	Bienvenue sur la page d'accueil <?php echo($_SESSION["user_firstname"]) ?>
 	<br>
 	<strong>
 	<?php

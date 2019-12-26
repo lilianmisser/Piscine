@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 23 déc. 2019 à 12:45
+-- Généré le :  jeu. 26 déc. 2019 à 11:23
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -38,18 +38,14 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `est_admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_compte`),
   UNIQUE KEY `mail` (`mail`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `compte`
 --
 
 INSERT INTO `compte` (`id_compte`, `nom`, `prenom`, `mail`, `mdp`, `est_admin`) VALUES
-(25, 'Eric', 'Pierre', 'pierre.eric@etu.umontpellier.fr', '$2y$10$rMEE7Uh7n4j2vrIMULwi4.5lev1h0UbMfWWg74VFhYiB3klEcl8gm', 0),
-(26, 'test', 'test', 'test@etu.umontpellier.fr', '$2y$10$zD8CToK4Crq1mu.DlAs8yOTxYYTa7d8hRveMPVsoeSY.PjCi0F/Ui', 0),
-(27, 'Lilian', 'Lilian', 'lilian@etu.umontpellier.fr', '$2y$10$2FU.8i52P9Q8KpQxeQ73Ke4.cs9N6jNP201YKChos29CBpEfLAj7m', 0),
-(28, 'lilian', 'lilian', 'lilian2@etu.umontpellier.fr', '$2y$10$.3V/Cndaz84LgvM8jgwgUevpMDz19w1NtFi9uXjmuo0GhRL6F7E2G', 0),
-(30, 'azerty', 'azerty', 'azertyu@etu.umontpellier.fr', '$2y$10$mgFuK7t3XGxZfQJ/mfhpEeXiA8Ve4eEiMq65lgCJoT0uO5zb4pUs6', 0);
+(33, 'lilian', 'lilian', 'lilian@etu.umontpellier.fr', '$2y$10$63aw0e1wFRTdwcG4NJiX1.mZ7ypoOoOAazTNKiEBbrbgNaqkzOYnW', 1);
 
 -- --------------------------------------------------------
 
@@ -70,11 +66,7 @@ CREATE TABLE IF NOT EXISTS `est_de_groupe` (
 --
 
 INSERT INTO `est_de_groupe` (`id_compte`, `id_grp`) VALUES
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(30, 1);
+(33, 79);
 
 -- --------------------------------------------------------
 
@@ -89,17 +81,47 @@ CREATE TABLE IF NOT EXISTS `groupe` (
   `num_grp` int(255) NOT NULL,
   PRIMARY KEY (`id_grp`),
   KEY `id_spe` (`id_spe`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `groupe`
 --
 
 INSERT INTO `groupe` (`id_grp`, `id_spe`, `num_grp`) VALUES
-(1, 'IG3', 1),
-(2, 'IG3', 2),
-(3, 'IG4', 1),
-(4, 'IG4', 2);
+(73, 'GBA3', 1),
+(74, 'GBA3', 2),
+(75, 'GBA4', 1),
+(76, 'GBA4', 2),
+(77, 'GBA5', 1),
+(78, 'GBA5', 2),
+(79, 'IG3', 1),
+(80, 'IG3', 2),
+(81, 'IG4', 1),
+(82, 'IG4', 2),
+(83, 'IG5', 1),
+(84, 'IG5', 2),
+(85, 'MEA3', 1),
+(86, 'MEA3', 2),
+(87, 'MEA4', 1),
+(88, 'MEA4', 2),
+(89, 'MEA5', 1),
+(90, 'MEA5', 2),
+(91, 'MI3', 1),
+(92, 'MI3', 2),
+(93, 'MI4', 1),
+(94, 'MI4', 2),
+(95, 'MI5', 1),
+(96, 'MI5', 2),
+(97, 'PEIP1', 1),
+(98, 'PEIP1', 2),
+(99, 'PEIP2', 1),
+(100, 'PEIP2', 2),
+(101, 'STE3', 1),
+(102, 'STE3', 2),
+(103, 'STE4', 1),
+(104, 'STE4', 2),
+(105, 'STE5', 1),
+(106, 'STE5', 2);
 
 -- --------------------------------------------------------
 
@@ -114,6 +136,20 @@ CREATE TABLE IF NOT EXISTS `participe` (
   KEY `id_session` (`id_session`),
   KEY `id_grp` (`id_grp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `participe`
+--
+
+INSERT INTO `participe` (`id_grp`, `id_session`) VALUES
+(73, 32),
+(83, 32),
+(106, 32),
+(76, 33),
+(82, 33),
+(101, 33),
+(79, 34),
+(80, 34);
 
 -- --------------------------------------------------------
 
@@ -347,17 +383,20 @@ CREATE TABLE IF NOT EXISTS `session` (
   `id_session` int(11) NOT NULL AUTO_INCREMENT,
   `date_session` date NOT NULL,
   `id_sujet` int(11) NOT NULL,
+  `est_en_cours` tinyint(1) NOT NULL DEFAULT '0',
+  `est_fini` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_session`),
   KEY `id_sujet` (`id_sujet`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `session`
 --
 
-INSERT INTO `session` (`id_session`, `date_session`, `id_sujet`) VALUES
-(6, '2019-12-29', 1),
-(7, '2019-12-27', 1);
+INSERT INTO `session` (`id_session`, `date_session`, `id_sujet`, `est_en_cours`, `est_fini`) VALUES
+(32, '2019-12-26', 1, 0, 0),
+(33, '2019-12-29', 2, 1, 0),
+(34, '2019-12-28', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -423,14 +462,15 @@ CREATE TABLE IF NOT EXISTS `sujet_toeic` (
   `nom_sujet` varchar(255) NOT NULL,
   PRIMARY KEY (`id_sujet`),
   UNIQUE KEY `nom_sujet` (`nom_sujet`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sujet_toeic`
 --
 
 INSERT INTO `sujet_toeic` (`id_sujet`, `nom_sujet`) VALUES
-(1, 'test');
+(1, 'test'),
+(2, 'test2');
 
 --
 -- Contraintes pour les tables déchargées
@@ -441,7 +481,7 @@ INSERT INTO `sujet_toeic` (`id_sujet`, `nom_sujet`) VALUES
 --
 ALTER TABLE `est_de_groupe`
   ADD CONSTRAINT `est_de_groupe_ibfk_1` FOREIGN KEY (`id_compte`) REFERENCES `compte` (`id_compte`) ON DELETE CASCADE,
-  ADD CONSTRAINT `est_de_groupe_ibfk_2` FOREIGN KEY (`id_grp`) REFERENCES `groupe` (`id_grp`);
+  ADD CONSTRAINT `est_de_groupe_ibfk_2` FOREIGN KEY (`id_grp`) REFERENCES `groupe` (`id_grp`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `groupe`
@@ -453,8 +493,8 @@ ALTER TABLE `groupe`
 -- Contraintes pour la table `participe`
 --
 ALTER TABLE `participe`
-  ADD CONSTRAINT `participe_ibfk_2` FOREIGN KEY (`id_session`) REFERENCES `session` (`id_session`),
-  ADD CONSTRAINT `participe_ibfk_3` FOREIGN KEY (`id_grp`) REFERENCES `groupe` (`id_grp`);
+  ADD CONSTRAINT `participe_ibfk_2` FOREIGN KEY (`id_session`) REFERENCES `session` (`id_session`) ON DELETE CASCADE,
+  ADD CONSTRAINT `participe_ibfk_3` FOREIGN KEY (`id_grp`) REFERENCES `groupe` (`id_grp`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `question`
