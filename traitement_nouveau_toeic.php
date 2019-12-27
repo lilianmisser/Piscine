@@ -3,13 +3,13 @@
     $taille_toeic = 200;
     $correct = true;
     
-    if(!(isset($_POST["nom_sujet"])) and $_POST["nom_sujet"] == ""){
+    if(!(isset($_POST["nom_sujet"])) or $_POST["nom_sujet"] == ""){
     	header("Location: page_accueil.php");
         exit;
     }
     
     for ($i=1 ; $i <= $taille_toeic ; $i++) {
-        if(!(isset($_POST['question'.strval($i)]) and ($_POST['question'.strval($i)] == "A" or $_POST['question'.strval($i)] == "B" or $_POST['question'.strval($i)] == "C" or $_POST['question'.strval($i)] == "D"))){
+        if(!(isset($_POST['question'.strval($i)]) or !($_POST['question'.strval($i)] == "A" or $_POST['question'.strval($i)] == "B" or $_POST['question'.strval($i)] == "C" or $_POST['question'.strval($i)] == "D"))){
         	$correct = false;
         }
     }
