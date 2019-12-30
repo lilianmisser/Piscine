@@ -1,0 +1,1 @@
+<div class=container-fluid style="padding-top:1%;padding-bottom:2.5%;height:5%;text-align:right"><span>Administrateur</span></div>
