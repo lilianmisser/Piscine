@@ -1,0 +1,14 @@
+.contenu div div {
+	display:none;
+
+}
+.contenu{
+	border:thick double #32a1ce;
+	height: auto;
+	min-height:30rem;
+	padding-top:2%;
+}
+
+.contenu div div:target ,.contenu div div:target div {
+	display:block;
+}

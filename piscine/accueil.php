@@ -40,5 +40,5 @@
 
 
 	<?php include("logo.php"); ?>
-</body>''
+</body>
 </html>

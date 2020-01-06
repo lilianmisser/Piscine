@@ -23,10 +23,7 @@
 		$tab = get_result($requete);
 	}
 
-	if($requete = $bdd->prepare("SELECT nom_sujet FROM sujet_toeic")){
-		$requete->execute();
-		$listeSujet = get_result($requete);
-	}
+
 	$bdd->close();
 
 ?>
@@ -36,8 +33,8 @@
 <html>
 <head>
 	<link rel=stylesheet href=css/bootstrap.css type=text/css>
-	<link rel=stylesheet href=css/format.css type=text/css>
 	<link rel=stylesheet href=css/gererToeic.css type=text/css>
+	<link rel=stylesheet href=css/format.css type=text/css>
 	<title>Gestion de Toeic</title>
 </head>
 <body>
@@ -46,34 +43,31 @@
 		include("menu/menuAdm.php");
 	?>
 	<div class=container>
-		<div class=row style="padding-top: 5%;padding-left: 2%;">
+		<div class=row style="padding-top: 5%;">
 			<div class="col-lg-3">
 				<div class="btn-group-vertical">
-					<a type="button" class="btn btn-info" href=#a>Programmer une session</a>
 					<a type="button" class="btn btn-info" href=#z>Ajouter un TOEIC</a>
 					<a type="button" class="btn btn-info" href=#e>Modifier un TOEIC</a>
 					<a type="button" class="btn btn-info" href=#r>Supprimer un TOEIC</a>
 				</div>
 			</div>
+			
 			<div class="col contenu">
 			    <div class=container>
 				    
 
-
-				    <div id="a">
-						<?php include("gestionToeic/progSession.php"); ?>
-					</div>
 				    <div id="z">
 						<?php include("gestionToeic/ajouterToeic.php"); ?>
 					</div>
+
 				    <div id="e">
 						<?php include("gestionToeic/modifierToeic.php"); ?>
 					</div>
+					
 				    <div id="r">
-				    	<?php include("gestionToeic/supprimerToeic.php"); ?>
+				    	<?php include("gestionToeic/sessionsEnCours.php"); ?>
 				    </div>
 		    	
-
 		    	</div>
 			</div>
 		</div>

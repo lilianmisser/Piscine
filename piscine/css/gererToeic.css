@@ -27,3 +27,28 @@
 	border-bottom-left-radius: 5px 5px;
 	border-top-left-radius: 5px 5px;
 }
+
+.repQuest {
+	border:0.5px solid black;
+	height:20rem;
+	overflow-y: scroll;
+	border-bottom-left-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+}
+
+.questions{
+	width:auto;
+}
+
+@media only screen and (min-width:800px) {
+		.questions{
+			padding-left:5%;
+		}
+	}
+
+@media only screen and (max-width:800px) {
+	.repQuest{
+		text-align:center;
+	}
+}
+

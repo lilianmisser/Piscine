@@ -26,7 +26,7 @@
             $errGrp=1;
         }
         if($errSujet==1 || $errDate==1 || $errDate2==1 || $errGrp==1){
-            header("Location: ../gererToeic.php?errSujet=".$errSujet."&errDate=".$errDate."&errDate2=".$errDate2."&errGrp=".$errGrp."#a");
+            header("Location: ../gererSession.php?errSujet=".$errSujet."&errDate=".$errDate."&errDate2=".$errDate2."&errGrp=".$errGrp."#NewSession");
             exit;
         }
         
@@ -48,11 +48,11 @@
                             $requete->execute();
                         }
                     }
-                    header("Location: ../gererToeic.php?success=1#a");
+                    header("Location: ../gererSession.php?success=1#NewSession");
                     exit;
                 }
             }else{
-                header("Location: ../gererToeic.php?erreur=errBDD#a");
+                header("Location: ../gererSession.php?erreur=errBDD#NewSession");
                 exit;
             }
         }

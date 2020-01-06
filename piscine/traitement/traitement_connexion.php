@@ -10,7 +10,7 @@
 				$requete->bind_result($userid,$firstname,$lastname,$mdp);
 				$requete->fetch();
 				if ($requete->num_rows==0){
-					header("Location: ../index.php?erreur=Pas de correspondance mail/mdp");
+					header("Location: ../index.php?errConnexion=1");
 					exit;
 				}
 				elseif ($requete->num_rows==1){
@@ -23,24 +23,24 @@
 						exit;
 					}
 					else{
-						header("Location: ../index.php?erreur=Pas de correspondance mail/mdp");
+						header("Location: ../index.php?errConnexion=2");
 						exit;
 					}
 				}
 				else{
-						header("Location: ../index.php?erreur=ERREUR");
+						header("Location: ../index.php?errConnexion=3");
 						exit;
 				}
 			}
 		}	
 		else{
-			header("Location: ../index.php?erreur=Informations manquantes");
+			header("Location: ../index.php?errConnexion=4");
 			exit;
 		}
 	
 	}
 	else{
-		header("Location: ../accueil.php");
+		header("Location: ../index.php");
 		exit;
 	}
 	$bdd->close();

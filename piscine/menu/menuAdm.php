@@ -7,6 +7,7 @@ $b='';
 $c='';
 $d='';
 $e='';
+$f='';
 
 switch($page) {
   case "accueil.php":
@@ -15,14 +16,17 @@ switch($page) {
   case "gererToeic.php":
     $b=' active';
     break;
-  case "gererUtilisateurs.php":
+  case "gererSession.php":
     $c=' active';
     break;
-  case "statistiques.php":
+  case "gererUtilisateurs.php":
     $d=' active';
     break;
-  case "monCompte.php":
+  case "statistiques.php":
     $e=' active';
+    break;
+  case "monCompte.php":
+    $f=' active';
     break;
 }
 
@@ -31,16 +35,19 @@ echo '<ul class="nav nav-tabs nav-justified">
           <a class="nav-link', $a ,'" href="accueil.php">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link', $b ,'" href="gererToeic.php#a">Gérer les Toeic</a>
+          <a class="nav-link', $b ,'" href="gererToeic.php#z">Gérer les Toeic</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link', $c ,'" href="gererUtilisateurs.php">Gérer les utilisateurs</a>
+          <a class="nav-link', $c ,'" href="gererSession.php#NewSession">Gérer les sessions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link', $d ,'" href="statistiques.php">Statistiques</a>
+          <a class="nav-link', $d ,'" href="gererUtilisateurs.php">Gérer les utilisateurs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link', $e ,'" href="monCompte.php">Mon compte</a>
+          <a class="nav-link', $e,'" href="statistiques.php">Statistiques</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link', $f ,'" href="monCompte.php">Mon compte</a>
         </li>
       </ul>'
 

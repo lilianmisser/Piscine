@@ -6,64 +6,117 @@
 		$requete->execute();
 		$tab = get_result($requete);
 	}
-
+	$errNom=0;
+	$errPrenom=0;
+	$errMail=0;
+	$errSpe=0;
+	$errMDP=0;
+	$errGrp=0;
 
 //Partie test des formulaires
-		if (!(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['mail']) && isset($_POST['specialite_et_annee']) && isset($_POST['mdp']) && isset($_POST['groupe_niveau'])) ) {
-			header("Location: ../index.php?erreur=Champ non rempli");
-			exit;
+		
+		if(!(isset($_POST['nom'])) || ($_POST['nom']=='' )) {
+			$errNom=1;
+		}
+		if(!(isset($_POST['prenom'])) || ($_POST['prenom']=='')) {
+			$errPrenom=1;
+		}
+		if(!(isset($_POST['mail'])) || ($_POST['mail']=='')) {
+			$errMail=1;
+		}
+		if(!(isset($_POST['specialite_et_annee']))) {
+			$errSpe=1;
+		}
+		if(!(isset($_POST['mdp'])) || ($_POST['mdp']=='')){
+			$errMDP=1;
+		}
+		if(!(isset($_POST['groupe_niveau']))){
+			$errGrp=1;
 		}
 
-		if (!preg_match('/^[\p{L}-]+$/',$_POST['nom'])){
-		    header("Location: ../index.php?erreur=Nom non valable");
-			exit;
+		if ($errNom!=1 && !preg_match('/^[\p{L}-]+$/',$_POST['nom'])){
+		    $errNom=2;
 		}
-		elseif (strlen($_POST['nom']) > 20){
-		    header("Location: ../index.php?erreur=Nom trop long");
-			exit;
+		elseif ($errNom!=1 && strlen($_POST['nom']) > 20){
+		    $errNom=3;
 		}
 
-		if (!preg_match('/^[\p{L}-]+$/',$_POST['prenom'])){
-		    header("Location: ../index.php?erreur=Prénom non valable");
-		    exit;
+		if ($errPrenom!=1 && !preg_match('/^[\p{L}-]+$/',$_POST['prenom'])){
+		    $errPrenom=2;
 		}
-		elseif (strlen($_POST['prenom']) > 20){
-			header("Location: ../index.php?erreur=Prénom trop long");
-			exit;
+		elseif ($errPrenom!=1 && strlen($_POST['prenom']) > 20){
+			$errPrenom=3;
 		}
 		
-		if (strlen($_POST['mdp']) <= 7){
-		    header("Location: ../index.php?erreur=Le mot de passe doit faire minimum 8 caractères");
-		    exit;
+		if ($errMDP!=1 && strlen($_POST['mdp']) <= 7){
+		    $errMDP=2;
 		}
 
-		if (!preg_match("/[\w.]+@etu\.umontpellier\.fr$/",$_POST['mail'])){
-			header("Location: ../index.php?erreur=E-mail non valide, il faut qu'elle soit universitaire de MTP");
-			exit;
+
+
+		if ($errMail!=1 && !preg_match("/[\w.]+@etu\.umontpellier\.fr$/",$_POST['mail'])){
+			$errMail=2;
+		}
+		if($requete = $bdd->prepare("SELECT mail FROM compte WHERE compte.mail = ?")) {
+			$requete->bind_param("s",$_POST["mail"]);
+			$requete->execute();
+			$requete->store_result();
+			if ($requete->num_rows != 0){
+				$errMail=3;
+			}
 		}
 
 		$specialite = $tab;
 		$i = 0;
 		$correspondance_specialite = false;
-		while (!$correspondance_specialite and $i < count($specialite)){
-			if($_POST['specialite_et_annee'] == $specialite[$i]["id_spe"]){
-				$correspondance_specialite = true;
+		if($errSpe!=1){
+			while (!$correspondance_specialite and $i < count($specialite)){
+				if($_POST['specialite_et_annee'] == $specialite[$i]["id_spe"]){
+					$correspondance_specialite = true;
+				}
+				else{
+					$i = $i + 1;
+				}
 			}
-			else{
-				$i = $i + 1;
+			if($i == count($specialite)){
+				$errSpe=2;
 			}
-		}
-		if($i == count($specialite)){
-			header("Location: ../index.php?erreur=Cette spécialité n'existe pas");
-			exit;
 		}
 
 
-		if (!($_POST["groupe_niveau"] == 1 or $_POST["groupe_niveau"] == 2 or $_POST["groupe_niveau"] == 3)){
-			header("Location: ../index.php?erreur=Ce groupe de niveau n'existe pas");
-			exit;
+		if ($errGrp!=1 && !($_POST["groupe_niveau"] == 1 or $_POST["groupe_niveau"] == 2 or $_POST["groupe_niveau"] == 3)){
+			$errGrp=2;
 		}
 		
+		if(!($errNom==0 && $errPrenom==0 && $errMail==0 && $errSpe==0 && $errMDP==0 && $errGrp==0)){
+			 echo '<form method="post" action="../index.php?errNom=',$errNom,'&errPrenom=',$errPrenom,'&errMail=',$errMail,'&errSpe=',$errSpe,'&errMDP=',$errMDP,'&errGrp=',$errGrp,'" id="form" name="form">';
+			 if($errNom==0){
+			 	echo '<input type="hidden" name="nomValide" value="',$_POST["nom"],'">';
+			 }
+			 if($errPrenom==0){
+			 	echo '<input type="hidden" name="prenomValide" value="',$_POST["prenom"],'">';
+			 }
+			 if($errMail==0){
+			 	echo '<input type="hidden" name="mailValide" value="',$_POST["mail"],'">';
+			 }
+			 if($errMDP==0){
+			 	echo '<input type="hidden" name="MDPValide" value="',$_POST["mdp"],'">';
+			 }
+			 if($errGrp==0){
+			 	echo '<input type="hidden" name="grpValide" value="',$_POST["groupe_niveau"],'">';
+			 }
+			 if($errSpe==0){
+			 	echo '<input type="hidden" name="speValide" value="',$_POST["specialite_et_annee"],'">';
+			 }
+			 echo '</form>';
+			  echo '<script type="text/JavaScript">
+                    document.getElementById("form").submit();
+                    </script>';
+
+			//header("Location: ../index.php?errNom=".$errNom."&errPrenom=".$errPrenom."&errMail=".$errMail."&errSpe=".$errSpe."&errMDP=".$errMDP."&errGrp=".$errGrp."");
+			//exit;
+		}else{
+
 //Fin partie test formulaire
 //Partie requete
 		if ($requete = $bdd->prepare('SELECT id_grp FROM groupe NATURAL JOIN specialite WHERE groupe.num_grp=? AND specialite.id_spe=?')){
@@ -77,19 +130,20 @@
 				if($requete = $bdd->prepare("INSERT INTO compte (nom,prenom,mail,mdp) VALUES (?,?,?,?)")) {
 					$requete->bind_param("ssss", $_POST["nom"], $_POST["prenom"],$_POST["mail"],$hashedPassword);
 					$requete->execute();
-					if ($requete->affected_rows == -1){ // car mail dans bdd a un index unique
-						header("Location: ../index.php?erreur=Mail déjà utilisé");
-						exit;
-					}
-					elseif ($requete->affected_rows == 1){
 						$compteid = $requete->insert_id;
 						if ($requete = $bdd->prepare("INSERT INTO est_de_groupe (id_compte,id_grp) VALUES (?,?)")){
 							$requete->bind_param('ii',$compteid,$groupid);
 							$requete->execute();
-							header("Location: ../index.php"); // redirige sur la page de connexion si inscription complète
-							exit;
+							
+							echo '<form method=post action=traitement_connexion.php id=form name=form>
+										<input type=hidden name=mail value=',$_POST["mail"],'>
+										<input type=hidden name=mdp value=',$_POST["mdp"],'>
+									</form>
+									<script type="text/JavaScript">
+                  						  document.getElementById("form").submit();
+                   					 </script>';
 						}
-					}	
+						
 				}
 			}
 			else{
@@ -100,4 +154,5 @@
 		}	
 	
 	$bdd->close();
+}
 ?>
