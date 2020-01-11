@@ -36,8 +36,7 @@
              exit;
         }else{
             if($errSujetAjout!=0 ){
-                //header("Location: ../gererToeic.php?&errSujetAjout=".$errSujetAjout."#z");
-                // exit;
+
 
             echo '
                     <form method="post" action="../gererToeic.php?recupVal=1&errSujetAjout=',$errSujetAjout,'#z" id="form" name="form">';

@@ -34,7 +34,7 @@ echo '<ul class="nav nav-tabs nav-justified">
           <a class="nav-link', $b ,'" href="lancerToeic.php">Lancer TOEIC</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link', $c ,'" href="statistiques.php">Mes notes</a>
+          <a class="nav-link', $c ,'" href="mesNotes.php#mesNotes">Mes notes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link', $d ,'" href="liensUtiles.php">Liens utiles</a>

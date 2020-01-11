@@ -32,11 +32,7 @@
 				$requete->bind_param("i",$groupid);
 				$requete->execute();
 				$sessions = get_result($requete);
-				if(count($sessions) == 0){
-					header("Location: accueil.php?erreur=Aucune session prévu pour votre groupe");
-	            	exit;
-				}
-				else{
+				if(count($sessions) != 0){
 					$sessions_available = array();
 					for($i=0;$i<count($sessions);$i++){
 						if($requete = $bdd->prepare("SELECT est_en_cours,est_fini FROM session WHERE session.id_session = ?")){
@@ -50,12 +46,7 @@
 							}
 						}
 					}
-					if(count($sessions_available) == 0){
-						print_r($sessions);
-						header("Location: accueil.php?erreur=Aucune session disponible");
-	            		exit;
-					}
-					else{
+					if(count($sessions_available) != 0){
 						$show_something = true;
 					}
 				}
@@ -75,12 +66,13 @@
 	<title>Connection session toeic</title>
 </head>
 <body>
-	<br>
-	Voici les sessions qui vous sont disponibles
-	<br>
 	<?php
 
-		if($show_something){ //s'il y a au moins une session possible
+		if($show_something){
+	echo'<br>
+			Voici les sessions qui vous sont disponibles
+		<br>';
+ //s'il y a au moins une session possible
 			for($i=0;$i<count($sessions_available);$i++){
 	?>
 	<form method="post" action="reponseEleve/liste_Parties.php"> <!-- formulaire, lien avec le serveur web -->
@@ -92,6 +84,8 @@
 	</form>
 	<?php
 			}
+		}else{
+			echo "pas de sessions";
 		}
 	?>
 </body>

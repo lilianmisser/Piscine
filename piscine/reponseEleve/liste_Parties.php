@@ -7,14 +7,11 @@
 		<link rel=stylesheet href=../css/format.css type=text/css>
 		<link rel=stylesheet href=../css/menu.css type=text/css>
 		<link rel=stylesheet href=../css/index.css type=text/css>
+		<link rel=stylesheet href=../css/gererToeic.css type=text/css>
         <title>Lancer TOEIC/Liste des parties</title>
         <meta charset="utf-8" />
     </head>
     <body>
-
-    	<?php
-		include("../menu/menuUti.php")
-		?>
 
 
 		<div class="container-fluid header border-bottom border-top">
@@ -34,77 +31,91 @@
 		exit;
 	}
 	$session=$_POST["id_session"];
+	include("../connectbdd.php");
+	include("../traitement/getResult.php");
+	if($requete = $bdd->prepare('SELECT session.id_session FROM session,sous_partie,compte WHERE compte.id_compte = ? AND compte.id_compte = sous_partie.id_compte AND session.id_session = sous_partie.id_session')){
+			$requete->bind_param("i",$_SESSION["user_id"]);
+            $requete->execute();
+            $note=get_result($requete);
+		}
+		if(count($note)>0){
+			header("Location: ../accueil.php");
+			exit;
+		}else{
 ?>
+<div class="container" style="padding-top:5%;">
+	<form method="post" action="../traitement/correction_questions.php">
 
-		<div class="container tout">
-			<div class=row>
-				<div class="col-lg-6 col-md-6 listening">
-					<table class=mx-auto style="height:100px;">
-						<tr>
-							<td class=align-middle>
-								<p>Listening</p>
-								<div class=container>
-									<div class='form-group'>
-										<form method=post action=partie1.php>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 1 </button>
-										</form>
-										<br />
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 2 </button>
-										</form>
-										<br />
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 3</button>
-										</form>
-										<br />
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 4 </button>
-										</form>
-									</div>
+		<div class="row" style="display:flex;text-align:center;">
+			<div class="form-group col-lg-6	">
+				<h4>Listening</h4>
+				<div class=repQuest>
+					<?php
+						for($i=1 ; $i <= 100 ; $i++){
+							echo '
+							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
+								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A>
+									<label class="form-check-label col-form-label" for="grp1">A</label>
 								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-
-				<div class="col-lg-6 col-md-6 reading">
-					<table class=mx-auto style="height:100px;">
-						<tr>
-							<td class=align-middle>
-								<p>Reading</p>
-								<div class=container>
-									<div class='form-group'>
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 5 </button>
-										</form>
-										<br />
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 6 </button>
-										</form>
-										<br />
-										<form>
-											<button type=submit name="id_session" value="<?php echo($session); ?>"> Part 7 </button>
-										</form>
-									</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B>
+									<label class="form-check-label col-form-label" for="grp2">B</label>
 								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C>
+									<label class="form-check-label col-form-label" for="grp3">C</label>
+								</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D>
+									<label class="form-check-label col-form-label" for="grp3">D</label>
+								</div>
 
+							</div>';
+					}
+				
+					?>
+				</div>
+			</div>
+
+			<div class="form-group col-lg-6">
+				<h4>Reading</h4>
+				<div class=repQuest>
+					<?php
+						for($i=101 ; $i <= 200 ; $i++){
+							echo '
+							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
+								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A>
+									<label class="form-check-label col-form-label" for="grp1">A</label>
+								</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B>
+									<label class="form-check-label col-form-label" for="grp2">B</label>
+								</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C>
+									<label class="form-check-label col-form-label" for="grp3">C</label>
+								</div>
+								<div style="display:inline-block" class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D>
+									<label class="form-check-label col-form-label" for="grp3">D</label>
+								</div>
+
+								
+							</div>';
+					}
+				
+					?>
+				</div>
 			</div>
 		</div>
-
-		<div class="container-fluid">
-			<table class=mx-auto style="height:100px;">
-				<tr>
-					<td class=align-middle>
-							<button type="submit" class="btn btn-primary">Valider mon TOEIC</button>
-					</td>
-				</tr>
-			</table>
-		</div>
-
-
+		<input type=hidden name=id_session value="<?php echo($session); ?>">
+		<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
+	</form>
+</div>
+<?php } ?>
     </body>
 </html>
