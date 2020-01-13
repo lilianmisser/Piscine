@@ -33,8 +33,8 @@
 	$session=$_POST["id_session"];
 	include("../connectbdd.php");
 	include("../traitement/getResult.php");
-	if($requete = $bdd->prepare('SELECT session.id_session FROM session,sous_partie,compte WHERE compte.id_compte = ? AND compte.id_compte = sous_partie.id_compte AND session.id_session = sous_partie.id_session')){
-			$requete->bind_param("i",$_SESSION["user_id"]);
+	if($requete = $bdd->prepare('SELECT session.id_session FROM session,sous_partie,compte WHERE compte.id_compte = ? AND compte.id_compte = sous_partie.id_compte AND session.id_session = sous_partie.id_session AND session.id_session= ?')){
+			$requete->bind_param("ii",$_SESSION["user_id"],$session);
             $requete->execute();
             $note=get_result($requete);
 		}

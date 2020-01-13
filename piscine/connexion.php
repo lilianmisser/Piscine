@@ -3,14 +3,14 @@
 	$MDPIncorrect='none';
 	$erreur='none';
 	$champsRequis='none';
-	if(isset($_GET["erreurConnexion"])){
-		if($_GET["erreurConnexion"]==1){
+	if(isset($_GET["errConnexion"])){
+		if($_GET["errConnexion"]==1){	//pas de mail dans la bdd
 			$mailIncorrect='block';
-		}elseif($_GET["erreurConnexion"]==2){
+		}elseif($_GET["errConnexion"]==2){ //bon mail mais mauvais mdp
 				$MDPIncorrect='block';
-		}elseif($_GET["erreurConnexion"]==3){
+		}elseif($_GET["errConnexion"]==3){ //plusieurs comptes ayant la meme adresse mail
 				$erreur='block';
-		}elseif($_GET["erreurConnexion"]==4){
+		}elseif($_GET["errConnexion"]==4){ //mdp ou mail non rempli
 			$champsRequis='block';
 		}
 	}

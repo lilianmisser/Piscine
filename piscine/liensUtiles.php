@@ -1,3 +1,12 @@
+<?php
+	session_start();
+	if(!(isset($_SESSION['user_id']))){
+		header("Location: index.php");
+		exit;
+	}
+	?>
+
+
 <html>
 <head>
 	<link rel=stylesheet href=css/bootstrap.css type=text/css>

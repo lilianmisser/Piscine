@@ -62,20 +62,20 @@
 							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
 								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A ',$a,' required>
-									<label class="form-check-label col-form-label" for="grp1">A</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'A" value=A ',$a,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'A">A</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B ',$b,' required>
-									<label class="form-check-label col-form-label" for="grp2">B</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'B" value=B ',$b,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'B">B</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C ',$c,' required>
-									<label class="form-check-label col-form-label" for="grp3">C</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'C" value=C ',$c,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'C">C</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D ',$d,' required>
-									<label class="form-check-label col-form-label" for="grp3">D</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'D" value=D ',$d,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'D">D</label>
 								</div>
 							</div>';
 						}
@@ -85,20 +85,20 @@
 							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
 								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A checked required>
-									<label class="form-check-label col-form-label" for="grp1">A</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'A" value=A checked required>
+									<label class="form-check-label col-form-label" for="grp',$i,'A">A</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B required>
-									<label class="form-check-label col-form-label" for="grp2">B</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'B" value=B required>
+									<label class="form-check-label col-form-label" for="grp',$i,'B">B</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C required>
-									<label class="form-check-label col-form-label" for="grp3">C</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'C" value=C required>
+									<label class="form-check-label col-form-label" for="grp',$i,'C">C</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D required>
-									<label class="form-check-label col-form-label" for="grp3">D</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'D" value=D required>
+									<label class="form-check-label col-form-label" for="grp',$i,'D">D</label>
 								</div>
 							</div>';
 					}
@@ -130,20 +130,20 @@
 							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
 								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A ',$a,' required>
-									<label class="form-check-label col-form-label" for="grp1">A</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'A" value=A ',$a,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'A">A</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B ',$b,' required>
-									<label class="form-check-label col-form-label" for="grp2">B</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'B" value=B ',$b,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'B">B</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C ',$c,' required>
-									<label class="form-check-label col-form-label" for="grp3">C</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'C" value=C ',$c,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'C">C</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D ',$d,' required>
-									<label class="form-check-label col-form-label" for="grp3">D</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'D" value=D ',$d,' required>
+									<label class="form-check-label col-form-label" for="grp',$i,'D">D</label>
 								</div>
 							</div>';
 						}
@@ -153,20 +153,20 @@
 							<div class="form-group row questions" style="display:flex;margin-right:0px;margin-left:0px;">
 								<label style="display:inline-block;" class="col-sm-2 col-form-label col-form-label-sm">Q',$i,'</label>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp1" value=A checked required>
-									<label class="form-check-label col-form-label" for="grp1">A</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'A" value=A checked required>
+									<label class="form-check-label col-form-label" for="grp',$i,'A">A</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp2" value=B required>
-									<label class="form-check-label col-form-label" for="grp2">B</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'B" value=B required>
+									<label class="form-check-label col-form-label" for="grp',$i,'B">B</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=C required>
-									<label class="form-check-label col-form-label" for="grp3">C</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'C" value=C required>
+									<label class="form-check-label col-form-label" for="grp',$i,'C">C</label>
 								</div>
 								<div style="display:inline-block" class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="question',$i,'" id="grp3" value=D required>
-									<label class="form-check-label col-form-label" for="grp3">D</label>
+									<input class="form-check-input" type="radio" name="question',$i,'" id="grp',$i,'D" value=D required>
+									<label class="form-check-label col-form-label" for="grp',$i,'D">D</label>
 								</div>
 							</div>';
 					}
@@ -180,5 +180,5 @@
 		</div>
 		<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
 	</form>
-	<h4 style='padding-bottom:5%;padding-top:5%;color:green;display:<?php echo($succesAjout); ?>'>Sujet ajoutée !</h4>
+	<h4 style='padding-bottom:5%;padding-top:5%;color:green;display:<?php echo($succesAjout); ?>'>Sujet ajouté !</h4>
 </div>

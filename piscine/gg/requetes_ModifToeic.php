@@ -4,7 +4,7 @@
     $correct = true;
     
     if(!(isset($_POST["id_sujet"]))){
-    	header("Location: ../accueil.php"); //cas pas normal (accès directement par le lien)
+    	header("Location: page_accueil.php"); //cas pas normal (accès directement par le lien)
         exit;
     }
 
@@ -21,11 +21,11 @@
 				$requete->execute();
 			}
 		}	    	
-		header("Location: ../gererToeic.php?Modif=1#e"); // Cas ou c'est bon
+		header("Location: gererToeic.php"); // Cas ou c'est bon
 		exit;
     }
     else{
-    	header("Location: ../gererToeic.php?Modif=0#e"); // cas ou les valeurs sont pas correctes
+    	header("Location: traitement_modifToeic.php"); // cas ou les valeurs sont pas correctes
 		exit;
     }
     $bdd->close();

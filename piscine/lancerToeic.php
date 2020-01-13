@@ -2,92 +2,76 @@
 	session_start();
 	include("connectbdd.php");
 	$show_something = false;
-	//fonction créer par @Sophivorus
-	//celle-çi permet de récupérer dans un tableau le résultat d'une requête préparée
-	function get_result(\mysqli_stmt $statement){
-	    $result = array();
-	    $statement->store_result();
-	    for ($i = 0; $i < $statement->num_rows; $i++)
-	    {
-	        $metadata = $statement->result_metadata();
-	        $params = array();
-	        while ($field = $metadata->fetch_field())
-	        {
-	            $params[] = &$result[$i][$field->name];
-	        }
-	        call_user_func_array(array($statement, 'bind_result'), $params);
-	        $statement->fetch();
-	    }
-	    return $result;
-	}
+	include("traitement/getResult.php");
 	
 	if(isset($_SESSION["user_id"])){
-		if($requete = $bdd->prepare("SELECT id_grp FROM est_de_groupe WHERE est_de_groupe.id_compte = ?")){
+		$session=$_SESSION["user_id"];
+		if($requete = $bdd->prepare("SELECT session.id_session,date_session FROM est_de_groupe,session,participe,groupe WHERE est_de_groupe.id_compte = ? AND est_de_groupe.id_grp=groupe.id_grp AND groupe.id_grp=participe.id_grp AND participe.id_session=session.id_session AND session.est_en_cours=1")){
 			$requete->bind_param("i",$_SESSION["user_id"]);
 			$requete->execute();
-			$requete->store_result();
-			$requete->bind_result($groupid);
-			$requete->fetch();
-			if($requete = $bdd->prepare("SELECT id_session FROM participe WHERE participe.id_grp = ?")){
-				$requete->bind_param("i",$groupid);
-				$requete->execute();
-				$sessions = get_result($requete);
-				if(count($sessions) != 0){
-					$sessions_available = array();
-					for($i=0;$i<count($sessions);$i++){
-						if($requete = $bdd->prepare("SELECT est_en_cours,est_fini FROM session WHERE session.id_session = ?")){
-							$requete->bind_param("i",$sessions[$i]["id_session"]);
-							$requete->execute();
-							$requete->store_result();
-							$requete->bind_result($session_ready,$session_over);
-							$requete->fetch();
-							if($session_ready and !$session_over){
-								array_push($sessions_available,$sessions[$i]["id_session"]);
-							}
-						}
-					}
-					if(count($sessions_available) != 0){
-						$show_something = true;
-					}
-				}
-			}
+			$sessionDispo=get_result($requete);
+			$show_something=true;
 		}
 	}
 	else{
-		header("Location: lancerToeic.php");
+		header("Location: index.php");
 		exit;
 	}
-	$bdd->close();
  ?>
-<!-- TO DO : vérifier si le form a bien une valeur dans la cible -->
+
+ 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Connection session toeic</title>
+	<link rel=stylesheet href=css/bootstrap.css type=text/css>
+	<link rel=stylesheet href=css/format.css type=text/css>
+	<link rel=stylesheet href=css/lancerToeic.css type=text/css>
 </head>
 <body>
 	<?php
-
-		if($show_something){
-	echo'<br>
-			Voici les sessions qui vous sont disponibles
-		<br>';
- //s'il y a au moins une session possible
-			for($i=0;$i<count($sessions_available);$i++){
-	?>
-	<form method="post" action="reponseEleve/liste_Parties.php"> <!-- formulaire, lien avec le serveur web -->
-		Session dispo de code : <?php echo($sessions_available[$i]) ?>
-		<br>
-		<input type="hidden" name="id_session" value="<?php echo($sessions_available[$i])?>">
-		<input type="submit" value="Rejoindre">	<!-- submit pour bouton -->
-		<br>
-	</form>
-	<?php
-			}
-		}else{
-			echo "pas de sessions";
+		include("bandeau/bandeauUti.php");
+		include("menu/menuUti.php");
+		?>
+		<div class="container central">
+			<?php
+			if($show_something){					//s'il y a au moins une session possible
+				for($i=0;$i<count($sessionDispo);$i++){
+				if($i%2==0){
+					$color="#DF566E";
+				}else{
+					$color="#B12B42";
+				}
+				$dejaParticipe='';
+				if($requete = $bdd->prepare('SELECT session.id_session FROM session,sous_partie,compte WHERE compte.id_compte = ? AND compte.id_compte = sous_partie.id_compte AND session.id_session = sous_partie.id_session AND session.id_session= ?')){
+						$requete->bind_param("ii",$session,$sessionDispo[$i]["id_session"]);
+           				$requete->execute();
+          				$nbNoteSession=get_result($requete);
+          				if(count($nbNoteSession)>0){
+          					$dejaParticipe='disabled';
+						}
+					}
+					echo '<form style="padding-top:5px;padding-bottom:5px;margin-block-end:0em;background:linear-gradient(to right,',$color,',white);" method="post" action= "reponseEleve/liste_Parties.php">
+								<div style="display:flex;" class="row justify-content-between">
+									<div class=col-4 style="padding-left:5%;">
+										<h4>Session du ',$sessionDispo[$i]["date_session"],'</h4>
+									</div>
+									<div class=col-4>
+										<button name="id_session" value="',$sessionDispo[$i]["id_session"],'" class="btn btn-danger" type="submit" ',$dejaParticipe,'>Rejoindre</button>
+									</div>
+								</div>
+							</form>';
+						
 		}
-	?>
-</body>
+		$bdd->close();
+				
+			}else{
+				echo "pas de sessions";
+			}
+		
+
+		?>
+		</div>
+	</body>
 </html>
 

@@ -65,7 +65,7 @@
 					</div>
 					
 				    <div id="r">
-				    	<?php include("gestionToeic/sessionsEnCours.php"); ?>
+				    	<?php include("gestionToeic/supprimerToeic.php"); ?>
 				    </div>
 		    	
 		    	</div>

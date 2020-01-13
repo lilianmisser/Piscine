@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'Roboto-Regular';
+  	src:url('Roboto-Regular.ttf');
+  }
+
+
+
 body{
-	font-family: sans-serif;
+	font-family: Roboto-Regular;
 }
 
 footer {
@@ -13,4 +20,9 @@ footer {
 		position:relative;
 		bottom:0%;
 	}
+}
+
+.btn-blue{
+	background-color:#009DE0;
+	color:white;
 }

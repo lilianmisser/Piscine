@@ -1,31 +1,42 @@
 <?php
 	include("connectbdd.php");
 
-	if($requete = $bdd->prepare("SELECT nom_sujet FROM sujet_toeic ")){
+	if($requete = $bdd->prepare("SELECT id_sujet,nom_sujet FROM sujet_toeic ")){
 		$requete->execute();
 		$tab = get_result($requete);
 	}
 	$bdd->close();
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Supprimer Toeic</title>
-</head>
-<body>
-	<form method="post" action= "traitement/traitement_suppressionToeic.php">
-		<select name="nom_sujet">
+	
+	echo '<div  class=container style="overflow-y:scroll;max-height:27rem;">';
+		for($i=0;$i<count($tab);$i++){
+			if($i%2==0){
+				$color="#89B4DA";
+			}else{
+				$color="#53A0E3";
+			}
+			echo '<form style="padding-top:5px;padding-bottom:5px;margin-block-end:0em;background:linear-gradient(to right,',$color,',white);" method="post" action= "traitement/traitement_suppressionToeic.php">
+					<div style="display:flex;" class="row justify-content-between">
+						<div class=col-4 style="padding-left:5%;">
+							<h4>',$tab[$i]["nom_sujet"],'</h4>
+						</div>
+						<div class=col-4>
+							<button name="id_sujet" value="',$tab[$i]["id_sujet"],'" class="btn btn-danger" type="submit">Supprimer</button>
+						</div>
+					</div>
+				</form>';
+			}
+			?>
+		</div>
 		<?php
-			for($i=0;$i<count($tab);$i++){
-		?>
-			<option value="<?php echo($tab[$i]["nom_sujet"])?>"> <?php echo($tab[$i]["nom_sujet"]) ?> </option>
-		<?php
+			if(isset($_GET["supp"])){
+				switch($_GET["supp"]){
+					case 1:
+						echo '<h4 style="padding-bottom:2%;padding-top:2%;color:green;">Sujet supprimé !</h4>';
+						break;
+					case 0:
+						echo '<h4 style="padding-bottom:2%;padding-top:2%;color:green;">Erreur, sujet non trouvé</h4>';
+						break;
+				}
 			}
 		?>
-		</select>
-		<br>
-		<input type="submit" value="Valider">
-	</form>
-</body>
-</html>
+

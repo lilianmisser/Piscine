@@ -25,12 +25,13 @@
 				}
 
 				if( ($i==count($session)-1) || ($session[$i]["id_session"] != $session[$i+1]["id_session"]))  {
+					
 					echo '<form style="padding-top:2%;" method="post" action="traitement/traitement_sessions_creees.php">
 							<button class="btn btn-secondary" type="submit" name="id_session" value="',$session[$i]["id_session"],'">Commencer cette session</button>
 						</form>';
-						echo '<form method="post" action="traitement/suppression_session.php">
+					echo '<form method="post" action="traitement/suppression_session.php">
 								<button class="btn btn-secondary" type="submit" name="id_session" value="',$session[$i]["id_session"],'">Supprimer cette session</button>
-							</form>';
+						</form>';
 				}
 			}
 }
