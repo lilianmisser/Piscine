@@ -51,9 +51,9 @@
 			<div class=row style="padding-top: 5%;">
 				<div class="col-lg-3">
 					<div class="btn-group-vertical">
-						<a type="button" class="btn btn-info" href=#NewSession>Programmer une session</a>
-						<a type="button" class="btn btn-info" href=#StartSession>Lancer une session</a>
-						<a type="button" class="btn btn-info" href=#RunningSession>Sessions en cours</a>
+						<a type="button" class="btn btn-blue" href=#NewSession>Programmer une session</a>
+						<a type="button" class="btn btn-blue" href=#StartSession>Lancer une session</a>
+						<a type="button" class="btn btn-blue" href=#RunningSession>Sessions en cours</a>
 					</div>
 				</div>
 

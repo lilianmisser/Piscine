@@ -260,6 +260,11 @@
 						<div class=decalage>
 	   							<button name=creationAdm type=submit class="btn btn-blue" value=compteAdm>Valider</button>
 	   					</div>
+	   					<?php
+	   						if(isset($_GET["successAdm"]) && $_GET["successAdm"]==1){
+	   							echo '<h4 class=decalage style="padding-top:2%;padding-bottom:2%;color:green;">Compte créé !</h4>';
+	   						}
+	   					?>
 					</form>
 				</div>
 			</div>

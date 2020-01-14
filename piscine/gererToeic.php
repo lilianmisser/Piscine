@@ -46,9 +46,9 @@
 		<div class=row style="padding-top: 5%;">
 			<div class="col-lg-3">
 				<div class="btn-group-vertical">
-					<a type="button" class="btn btn-info" href=#z>Ajouter un TOEIC</a>
-					<a type="button" class="btn btn-info" href=#e>Modifier un TOEIC</a>
-					<a type="button" class="btn btn-info" href=#r>Supprimer un TOEIC</a>
+					<a type="button" class="btn btn-blue" href=#z>Ajouter un TOEIC</a>
+					<a type="button" class="btn btn-blue" href=#e>Modifier un TOEIC</a>
+					<a type="button" class="btn btn-blue" href=#r>Supprimer un TOEIC</a>
 				</div>
 			</div>
 			

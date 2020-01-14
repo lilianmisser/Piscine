@@ -51,12 +51,13 @@
           					$dejaParticipe='disabled';
 						}
 					}
+
 					echo '<form style="padding-top:5px;padding-bottom:5px;margin-block-end:0em;background:linear-gradient(to right,',$color,',white);" method="post" action= "reponseEleve/liste_Parties.php">
 								<div style="display:flex;" class="row justify-content-between">
-									<div class=col-4 style="padding-left:5%;">
-										<h4>Session du ',$sessionDispo[$i]["date_session"],'</h4>
+									<div class="col-4 session" style="padding-left:5%;">
+										Session du ',$sessionDispo[$i]["date_session"],'
 									</div>
-									<div class=col-4>
+									<div class="col-4">
 										<button name="id_session" value="',$sessionDispo[$i]["id_session"],'" class="btn btn-danger" type="submit" ',$dejaParticipe,'>Rejoindre</button>
 									</div>
 								</div>

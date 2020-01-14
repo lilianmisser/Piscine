@@ -1,12 +1,9 @@
-@font-face {
-  font-family: 'Roboto-Regular';
-  	src:url('Roboto-Regular.ttf');
-  }
+
 
 
 
 body{
-	font-family: Roboto-Regular;
+	font-family: sans-serif;
 }
 
 footer {
@@ -24,5 +21,32 @@ footer {
 
 .btn-blue{
 	background-color:#009DE0;
+	color:white;
+}
+.btn-bordeau{
+	background-color:#DC143C;
+	color:white;
+}
+.banniere {
+	width:100%;
+	/*background:linear-gradient(to right,#009DE0,white);*/
+	background-color:#009DE0;
+	color:white;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	padding-left:2%;
+}
+
+.nav {
+	background-color:#009DE0;
+	
+}
+.nav a{
+	color:white;
+}
+
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+	background-color:#4267B2;
 	color:white;
 }

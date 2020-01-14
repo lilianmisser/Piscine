@@ -183,10 +183,10 @@
 	                    </script>';
 
 			}else{
-				if($requete=$bdd->prepare('INSERT INTO compte (nom,prenom,mail,mdp,est_admin) VALUES (?,?,?,?,1)')){
+				if($requete=$bdd->prepare('INSERT INTO compte VALUES (null,?,?,?,?,1)')){
 					$requete->bind_param("ssss",$_POST["nom"],$_POST["prenom"],$_POST["mail"],password_hash($_POST["mdp"],PASSWORD_DEFAULT));
 					$requete->execute();
-					header("Location : ../monCompte.php#adm");
+					header("Location: ../monCompte.php?successAdm=1#adm");
 					exit;
 				}
 			}
