@@ -59,6 +59,10 @@
 		}
 	}
 	
+	if(count($donnees_promo) == 0){
+		header("Location: accueil.php");
+		exit;
+	}
 
 	$verif = $donnees_promo[0]["id_compte"];
 	$moyenne_eleves = array();
