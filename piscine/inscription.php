@@ -27,16 +27,16 @@
 
 							if($errNom==1){
 								$nomRequis='block';
-							}elseif($errNom==2){
-								$nomTropLong='block';
 							}elseif($errNom==3){
+								$nomTropLong='block';
+							}elseif($errNom==2){
 								$nomCS='block';
 							}
 							if($errPrenom==1){
 								$prenomRequis='block';
-							}elseif($errPrenom==2){
-								$prenomTropLong='block';
 							}elseif($errPrenom==3){
+								$prenomTropLong='block';
+							}elseif($errPrenom==2){
 								$PrenomCS='block';
 							}
 							if($errMail==1){

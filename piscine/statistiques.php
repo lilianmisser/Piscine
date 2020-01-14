@@ -28,57 +28,54 @@
 <html>
 <head>
 	<title>Statistiques</title>
+	<link rel=stylesheet href=css/bootstrap.css type=text/css>
+	<link rel=stylesheet href=css/format.css type=text/css>
 </head>
 <body>
-	<form method = "post" action = "statsProfs.php">
-		Insérez groupe
-		<br>
-		<select name = "groupe_niveau">
-			<option value=""></option>
-			<option value=1>1</option>
-			<option value=2>2</option>
-			<option value=3>3</option>
-		</select>
-		<br>
-		Insérez promo
-		<br>
-		<select name="specialite_et_annee">
-			<?php
-				for($i=0 ; $i < count($tab) ; $i++){
-			?>
-			<option value="<?php echo($tab[$i]["id_spe"]); ?>"><?php echo($tab[$i]["id_spe"]); ?></option>
-			<?php
-				}
-			?>
-		</select>
-		<br>
-		<input type = "submit" value = "Statistiques partielles">
-		
-	</form>
-	<form method = "post" action = "statsProfs2.php">
-		Insérez groupe
-		<br>
-		<select name = "groupe_niveau">
-			<option value=""></option>
-			<option value=1>1</option>
-			<option value=2>2</option>
-			<option value=3>3</option>
-		</select>
-		<br>
-		Insérez promo
-		<br>
-		<select name="specialite_et_annee">
-			<?php
-				for($i=0 ; $i < count($tab) ; $i++){
-			?>
-			<option value="<?php echo($tab[$i]["id_spe"]); ?>"><?php echo($tab[$i]["id_spe"]); ?></option>
-			<?php
-				}
-			?>
-		</select>
-		<br>
+	<?php
+		include("bandeau/bandeauAdm.php");
+		include("menu/menuAdm.php"); //si compte adm, menuUti sinon
+		?>
+		<div class=container style="padding-top:5%;padding-left:">
+			<div class="row justify-content-center">
+				<form method = "post" action = "statProf/redirection.php">
 
-		<input type ="submit" value = "Vision promotion"/>
-	</form>
+					<div class="form-group row">
+						<label class=" col-lg-9 col-form-label col-form-label-sm" for="spec">Choisissez une promotion</label>			
+						<select name="specialite_et_annee">
+							<?php
+								for($i=0 ; $i < count($tab) ; $i++){
+							?>
+							<option value="<?php echo($tab[$i]["id_spe"]); ?>"><?php echo($tab[$i]["id_spe"]); ?></option>
+							<?php
+								}
+							?>
+						</select>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-lg-9 col-form-label col-form-label-sm" for="spec">Choisissez un groupe (optionnel)</label>
+						<select name = "groupe_niveau">
+							<option value=""></option>
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+						</select>
+					</div>
+					<button class="btn btn-secondary" type = "submit" name=redi value = "statPart">Moyenne promotion</button>
+					<button class="btn btn-secondary" type ="submit" name=redi value = "promo">Statistiques élèves promotion</button>
+				</form>
+			
+			</div>
+			<div class="row justify-content-center">
+				<?php
+					if(isset($_GET["err"]) && $_GET["err"]==0){
+						echo '<h5 style="padding-top:2%;padding-bottom:2%;color:red;">Pas de données pour cette catégorie</h5>';
+					}
+
+				?>
+			</div>
+		</div>
 </body>
 </html>

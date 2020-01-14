@@ -18,8 +18,7 @@
 <head>
 	<link rel=stylesheet href=css/bootstrap.css type=text/css>
 	<link rel=stylesheet href=css/format.css type=text/css>
-	<link rel=stylesheet href=css/gererSession.css type=text/css>
-	<link rel=stylesheet href=stats.css type=text/css>
+	<link rel=stylesheet href=css/mesNotes.css type=text/css>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<title>Mes notes</title>
 </head>
@@ -42,38 +41,47 @@
 		}
 ?>
 
-		<div class=container>
-			<div class=row style="padding-top: 5%;">
-				<div class="col-lg-3">
-					<div class="btn-group-vertical">
-						<a type="button" class="btn btn-info" href=#mesNotes>Mes notes</a>
-						<a type="button" class="btn btn-info" href=#Stat>Statistiques</a>
-					</div>
-				</div>
+	<div class=container>
+						<div class=notes>
+							<div class=banniere>Mes notes </div>
+							<div class=decalage>
+								<?php
 
-				<div class="col contenu">
-					<div class=container>
-						<div id="mesNotes">
-							<?php
-
-								for($i=0;$i<count($note);$i+=7){
-						        	$listening=$note[$i]["note_sp"]+$note[$i+1]["note_sp"]+$note[$i+2]["note_sp"]+$note[$i+3]["note_sp"];
-									$reading=$note[$i+4]["note_sp"]+$note[$i+5]["note_sp"]+$note[$i+6]["note_sp"];
-									echo 'Session du : <b style="color:red;">',fromUsDateToFrDate($note[$i]["date_session"]),'</b>, note <b style="color:red;">',$tablReading[$reading]+$tablListening[$listening],'</b>';
-									echo '<br>';	
-									array_push($stock_notes,$tablReading[$reading]+$tablListening[$listening]);
-									array_push($stock_dates, fromUsDateToFrDate($note[$i]["date_session"]));
-									array_push($stock_listening,$tablListening[$listening]);
-									array_push($stock_reading,$tablReading[$reading]);
-        						}
-								
-							?>
-						
-
+									for($i=0;$i<count($note);$i+=7){
+							        	$listening=$note[$i]["note_sp"]+$note[$i+1]["note_sp"]+$note[$i+2]["note_sp"]+$note[$i+3]["note_sp"];
+										$reading=$note[$i+4]["note_sp"]+$note[$i+5]["note_sp"]+$note[$i+6]["note_sp"];
+										echo 'Session du <b style="color:red;">',fromUsDateToFrDate($note[$i]["date_session"]),'</b> : <b style="color:black;">',$tablReading[$reading]+$tablListening[$listening],'</b>';
+										echo '<br>';	
+										array_push($stock_notes,$tablReading[$reading]+$tablListening[$listening]);
+										array_push($stock_dates, fromUsDateToFrDate($note[$i]["date_session"]));
+										array_push($stock_listening,$tablListening[$listening]);
+										array_push($stock_reading,$tablReading[$reading]);
+	        						}
+									
+								?>
+							</div>
+							<div class=notes>
+								<nav class="navbar navbar-expand-lg navbar-dark btn-blue">
+								  <a class="navbar-brand" href="#">Statistiques</a>
+								  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+								    <span class="navbar-toggler-icon">sss</span>
+								  </button>
+								  <div class="collapse navbar-collapse" id="navbarText">
+								    <ul class="navbar-nav mr-auto">
+								      <li class="nav-item">
+								        <a class="nav-link" href="#bar">Diagramme de barres</a>
+								      </li>
+								      <li class="nav-item">
+								        <a class="nav-link" href="#bar2">Diagramme de barres Listening/Reading</a>
+								      </li>
+								      <li class="nav-item">
+								        <a class="nav-link" href="#linegraph">Diagramme linéaire</a>
+								      </li>
+								    </ul>
+								  </div>
+								</nav>
 						</div>
-						<a href=#bar>Diagramme de barres</a>
-						<a href=#bar2>Diagramme de barres Listening/Reading</a>
-						<a href=#linegraph>Diagramme linéaire</a>
+			
 						<div class=barre id="bar">
 							<canvas id="barstats"></canvas>
 							<script>
@@ -276,10 +284,7 @@
 							</script>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		
 
+</div>
 </body>
 </html>

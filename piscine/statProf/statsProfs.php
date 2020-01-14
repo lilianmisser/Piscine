@@ -1,8 +1,8 @@
 <?php
-	include("connectbdd.php");
+	include("../connectbdd.php");
 	session_start();
 	if(!(isset($_SESSION['user_id']))){
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit;
 	}
 
@@ -14,14 +14,14 @@
 		$requete->fetch();
 	}
 	if(!$admin){
-		header("Location: accueil.php");
+		header("Location: ../accueil.php");
 		exit;
 	}
 	
 	$onlyspe = false;
 
 	if(!(isset($_POST["specialite_et_annee"]))){
-		header("Location: accueil.php");
+		header("Location: ../accueil.php");
 		exit;
 	}
 
@@ -29,7 +29,7 @@
 		$onlyspe = true;
 	}
 	
-	include("traitement/getResult.php");
+	include("../traitement/getResult.php");
 	//Pré-conditions : date avec ce format : ('Y/m/d')
 	//fonction qui retourne la date en paramètre en format français : ('d/m/Y')
 	function fromUsDateToFrDate($us_date){
@@ -41,7 +41,7 @@
 	$tablReading=array(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,20,25,30,35,40,45,55,60,65,70,75,80,85,90,95,105,115,120,125,130,135,140,145,155,160,170,175,185,195,205,210,215,220,230,240,245,250,255,260,270,275,280,285,290,295,295,300,310,315,320,325,330,335,340,345,355,360,370,375,385,390,395,400,405,415,420,425,435,440,450,455,460,470,475,485,485,490,495);
 
 	if($onlyspe){
-		if($requete = $bdd->prepare('SELECT session.id_session,nom_sujet,num_sp,note_sp,date_session FROM session,groupe,participe,sous_partie,sujet_toeic WHERE groupe.id_spe = ? AND participe.id_grp = groupe.id_grp AND session.id_session = participe.id_session AND sous_partie.id_session = session.id_session AND session.id_sujet = sujet_toeic.id_sujet')){
+		if($requete = $bdd->prepare('SELECT session.id_session,nom_sujet,num_sp,note_sp,date_session,compte.id_compte FROM compte,session,est_de_groupe,groupe,participe,sous_partie,sujet_toeic WHERE groupe.id_spe = ? AND est_de_groupe.id_compte = compte.id_compte AND participe.id_grp = groupe.id_grp AND session.id_session = participe.id_session AND sous_partie.id_session = session.id_session AND session.id_sujet = sujet_toeic.id_sujet AND compte.id_compte = sous_partie.id_compte ORDER BY session.id_session,id_compte,num_sp')){
 			$requete->bind_param("s",$_POST["specialite_et_annee"]);
 			$requete->execute();
 			$donnees_promo = get_result($requete);
@@ -49,7 +49,7 @@
 		}
 	}
 	else{
-		if($requete = $bdd->prepare('SELECT session.id_session,nom_sujet,num_sp,note_sp,date_session FROM session,groupe,participe,sous_partie,sujet_toeic WHERE groupe.id_spe = ? AND groupe.num_grp = ? AND participe.id_grp = groupe.id_grp AND session.id_session = participe.id_session AND sous_partie.id_session = session.id_session AND session.id_sujet = sujet_toeic.id_sujet')){
+		if($requete = $bdd->prepare('SELECT session.id_session,nom_sujet,num_sp,note_sp,date_session,compte.id_compte FROM compte,session,est_de_groupe,groupe,participe,sous_partie,sujet_toeic WHERE groupe.id_spe = ? AND groupe.num_grp = ? AND est_de_groupe.id_compte = compte.id_compte AND participe.id_grp = groupe.id_grp AND session.id_session = participe.id_session AND sous_partie.id_session = session.id_session AND session.id_sujet = sujet_toeic.id_sujet AND compte.id_compte = sous_partie.id_compte ORDER BY session.id_session,id_compte,num_sp')){
 			$requete->bind_param("si",$_POST["specialite_et_annee"],strval($_POST["groupe_niveau"]));
 			$requete->execute();
 			$donnees_promo = get_result($requete);
@@ -58,7 +58,7 @@
 	}
 
 	if(count($donnees_promo) == 0){ // Aucun résultat
-		header("Location: accueil.php");
+		header("Location: ../statistiques.php?err=0");
 		exit;
 	}
 	
@@ -115,13 +115,32 @@
 <html>
 <head>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
-	<link rel=stylesheet href=stats.css type=text/css>
+	<link rel=stylesheet href=../css/bootstrap.css type=text/css>
+	<link rel=stylesheet href=../css/mesNotes.css type=text/css>
+	<link rel=stylesheet href=../css/format.css type=text/css>
 	<title>Statistiques promotion</title>
 </head>
 <body>
-	<a href=#bar>Diagramme de barres</a>
-	<a href=#linegraph>Diagramme linéaire</a>
-	<a href=#bar2>Diagramme de barres Listening/Reading</a>
+	<nav class="navbar navbar-expand-lg navbar-dark btn-blue">
+  <a class="navbar-brand" href="../statistiques.php">Retour</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#bar">Diagramme de barres</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#bar2">Diagramme de barres Listening/Reading</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#linegraph">Diagramme linéaire</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 	<div class=barre id="bar">
 		<canvas id="barstats"></canvas>
 		<script>

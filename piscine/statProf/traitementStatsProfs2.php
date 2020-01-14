@@ -1,8 +1,8 @@
 <?php
-	include("connectbdd.php");
+	include("../connectbdd.php");
 	session_start();
 	if(!(isset($_SESSION['user_id']))){
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit;
 	}
 	
@@ -14,7 +14,7 @@
 		$requete->fetch();
 	}
 	if(!$admin){
-		header("Location: accueil.php");
+		header("Location: ../accueil.php");
 		exit;
 	}
 
@@ -23,7 +23,7 @@
 		exit;
 	}
 
-	include("traitement/getResult.php");
+	include("../traitement/getResult.php");
 	//Pré-conditions : date avec ce format : ('Y/m/d')
 	//fonction qui retourne la date en paramètre en format français : ('d/m/Y')
 	function fromUsDateToFrDate($us_date){
@@ -58,21 +58,32 @@
 <html>
 <head>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+	<link rel=stylesheet href=../css/bootstrap.css type=text/css>
+	<link rel=stylesheet href=../css/format.css type=text/css>
+	<link rel=stylesheet href=../css/mesNotes.css type=text/css>
 	<title>Statistiques</title>
 </head>
 <body>
-<link rel=stylesheet href=stats.css type=text/css>
-	Voici les statistiques de  
-<?php
-	echo ($_POST["nom"]);
-	echo(" ");
-	echo ($_POST["prenom"]);
-	echo(" qui appartient à la promotion : ");
-	echo ($_POST["promo"]);
-?>
-	<a href=#bar>Diagramme de barres</a>
-	<a href=#bar2>Diagramme de barres Listening/Reading</a>
-	<a href=#linegraph>Diagramme linéaire</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark btn-blue">
+  <a class="navbar-brand" href="../statistiques.php">Retour</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#bar">Diagramme de barres</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#bar2">Diagramme de barres Listening/Reading</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#linegraph">Diagramme linéaire</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 	<div class=barre id="bar">
 		<canvas id="barstats"></canvas>
 		<script>
@@ -128,7 +139,7 @@
 				responsive : true,
 				title:{
 					display:true,
-					text: "Notes élève pour chaque date de session" ,
+					text: "Notes de <?php echo($_POST["nom"]." ".$_POST["prenom"]); ?> pour chaque session",
 					fontSize:25
 				},
 				legend:{
@@ -187,7 +198,7 @@
 				responsive : true,
 				title:{
 					display:true,
-					text: "Notes élève pour chaque date de session" ,
+					text: "Notes de <?php echo($_POST["nom"]." ".$_POST["prenom"]); ?> pour chaque session",
 					fontSize:25
 				},
 				legend:{
@@ -248,7 +259,7 @@
 				responsive : true,
 				title:{
 					display:true,
-					text: "Notes élève pour chaque session",
+					text: "Notes de <?php echo($_POST["nom"]." ".$_POST["prenom"]); ?> pour chaque session",
 					fontSize:25
 				},
 				legend:{

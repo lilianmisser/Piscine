@@ -1,8 +1,8 @@
 <?php
-	include("connectbdd.php");
+	include("../connectbdd.php");
 	session_start();
 	if(!(isset($_SESSION['user_id']))){
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit;
 	}
 	
@@ -14,14 +14,14 @@
 		$requete->fetch();
 	}
 	if(!$admin){
-		header("Location: accueil.php");
+		header("Location: ../accueil.php");
 		exit;
 	}
 
 	$onlyspe = false;
 
 	if(!(isset($_POST["specialite_et_annee"]))){
-		header("Location: accueil.php");
+		header("Location: ../accueil.php");
 		exit;
 	}
 
@@ -29,7 +29,7 @@
 		$onlyspe = true;
 	}
 	
-	include("traitement/getResult.php");
+	include("../traitement/getResult.php");
 	//Pré-conditions : date avec le format américain : ('Y/m/d')
 	//fonction qui retourne la date en paramètre en format français : ('d/m/Y')
 	function fromUsDateToFrDate($us_date){
@@ -60,7 +60,7 @@
 	}
 	
 	if(count($donnees_promo) == 0){
-		header("Location: accueil.php");
+		header("Location: ../statistiques.php?err=0");
 		exit;
 	}
 
@@ -135,10 +135,10 @@
 
 
 	if($onlyspe){
-		$title = "Voici les élèves de la promotion ".$_POST["specialite_et_annee"].".";
+		$title = "Élèves de la promotion ".$_POST["specialite_et_annee"];
 	}
 	else{
-		$title = "Voici les élèves de la promotion ".$_POST["specialite_et_annee"]." appartenant au groupe ".$_POST["groupe_niveau"].".";
+		$title = "Élèves de la promotion ".$_POST["specialite_et_annee"]." appartenant au groupe ".$_POST["groupe_niveau"];
 	}	
 	$bdd->close();
 ?>
@@ -147,50 +147,96 @@
 <html>
 <head>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+	<link rel=stylesheet href=../css/bootstrap.css type=text/css>
+	<link rel=stylesheet href=../css/format.css type=text/css>
+
 	<title>Statistiques eleves</title>
 </head>
 <body>
-	<?php echo($title); ?>
-	<br>
-	<form method = "post" action = "traitementStatsProfs2.php">
-<?php 
-	for($i=0;$i<count($moyenne_eleves);$i++){
-		
-?>
-<?php
-	echo ($donnees_promo[$information_eleves[$i]]["nom"]);
-	echo(" ");
-	echo ($donnees_promo[$information_eleves[$i]]["prenom"]);
-	if($moyenne_eleves[$i]<785){
-		echo(" , Cet élève ne valide pas le barême demandé, il a une moyenne de : ");
-		echo ($moyenne_eleves[$i]);
-	}
-	else{
-		echo(" , Cet élève valide le barême demandé, il a une moyenne de : ");
-		echo ($moyenne_eleves[$i]);
-	}
-	if($moyenne_listening[$i]<247.5){
-			echo("   Il possède une lacune en listening");
-		}
-	if($moyenne_reading[$i]<247.5){
-			echo("   Il possède une lacune en reading");
-		}
+<nav class="navbar navbar-expand-lg navbar-dark btn-blue">
+  <a class="navbar-brand" href="../statistiques.php">Retour</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+  </div>
+</nav>
+	<div class=container style="padding-top:5%;">
+	<div class="row banniere" style="width:auto;">
+		<div class=col-lg-4>
+			<div class=><?php echo($title); ?></div>
+		</div>
+		<div class=col-lg-2>
+			Note
+		</div>
+		<div class=col-lg-3>
+			Lacunes
+		</div>
+		<div class=col-lg-3>
+			Statistiques
+		</div>
+	</div>
 
-?>
-	<input type="hidden" name="nom" value="<?php echo($donnees_promo[$information_eleves[$i]]["nom"])?>">
-	<input type="hidden" name="prenom" value="<?php echo($donnees_promo[$information_eleves[$i]]["prenom"])?>">
-	<input type="hidden" name="promo" value="<?php echo($_POST["specialite_et_annee"])?>">
-	<input type="hidden" name="id_compte" value="<?php echo($donnees_promo[$information_eleves[$i]]["id_compte"])?>">
-	<input type="submit" value="Ses Statistiques">
-	<br>
-<?php
+
+
+
+<?php 
+
+	for($i=0;$i<count($moyenne_eleves);$i++){
+		$color="white";
+		if($moyenne_eleves[$i]<785){
+			$color="#AE1C1C";
+		}
+		else{
+			$color="#1C912A";
+		}
+		if($moyenne_listening[$i]<392.5 && $moyenne_reading[$i]<392.5){
+
+		}else{
+			if($moyenne_listening[$i]<392.5){
+
+			}
+			if($moyenne_reading[$i]<392.5){
+
+			}
+		}
+		echo '<div class=row style="padding-top:1%;padding-bottom:1%;color:',$color,'">
+					<div class=col-lg-4 style="padding-left:2%;">
+					',$donnees_promo[$information_eleves[$i]]["nom"],' ',$donnees_promo[$information_eleves[$i]]["prenom"],'
+					</div>
+				
+				
+					<div class=col-lg-2 style="padding-left:3%;">
+						',$moyenne_eleves[$i],'
+					</div>
+				
+				<div class=col-lg-3 style="padding-left:2%;">';
+					if($moyenne_listening[$i]<392.5 && $moyenne_reading[$i]<392.5){
+						echo 'Listening/Reading';
+					}else{
+						if($moyenne_listening[$i]<392.5){
+							echo 'Listening';
+						}elseif($moyenne_reading[$i]<392.5){
+							echo 'Reading';
+						}
+					}	
+				echo '</div>
+				<div class=col-lg-3 style="padding-left:4%;">
+					<form method = "post" action = "traitementStatsProfs2.php">					
+						<input type="hidden" name="nom" value="',$donnees_promo[$information_eleves[$i]]["nom"],'">
+						<input type="hidden" name="prenom" value="',$donnees_promo[$information_eleves[$i]]["prenom"],'">
+						<input type="hidden" name="promo" value="',$_POST["specialite_et_annee"],'">
+						<input type="hidden" name="id_compte" value="',$donnees_promo[$information_eleves[$i]]["id_compte"],'">
+						<input type="submit" value="➔">
+					</form>
+				</div>
+			</div>';
+
 	}
 ?>
-	</form>
-	<br>
-	<br>
-	Vision globale des problèmes de cette promotion : 
-	<br>
+	
+	<div class="row banniere" style="margin-bottom:2%;margin-top:2%;width:auto;";>Vision globale des problèmes de cette promotion</div>
+
 	<div>
 		<canvas id="radar"></canvas>
 		<script>
@@ -225,7 +271,14 @@
 				legend:{
 					display:true,
 				},
-			    scales:{
+			    scale:{
+			    	anglelines:{
+			    		display:false,
+			    	},
+			    	ticks:{
+			    		suggestedMin:0,
+			    		suggestedMax:100
+			    	},
 			        yAxes: [{
 			        	stacked: false,
 			            display: false,
@@ -245,5 +298,6 @@
 		});
 		</script>
 	</div>
+</div>
 </body>
 </html>

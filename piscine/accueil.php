@@ -34,7 +34,7 @@
 	?>
 	
 	<div class="container centre">
-		<h1>Bienvenue sur entrainement Toeic</h1>
+		<h1>Bienvenue sur Tech'Toeic</h1>
 		<img src="image/polytech.jpg" width=50% alt="Responsive image">
 	</div>
 

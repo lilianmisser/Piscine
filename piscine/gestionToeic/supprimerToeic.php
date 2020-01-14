@@ -31,10 +31,10 @@
 			if(isset($_GET["supp"])){
 				switch($_GET["supp"]){
 					case 1:
-						echo '<h4 style="padding-bottom:2%;padding-top:2%;color:green;">Sujet supprimé !</h4>';
+						echo '<h5 style="padding-bottom:2%;padding-top:2%;color:green;">Sujet supprimé !</h5>';
 						break;
 					case 0:
-						echo '<h4 style="padding-bottom:2%;padding-top:2%;color:green;">Erreur, sujet non trouvé</h4>';
+						echo '<h5 style="padding-bottom:2%;padding-top:2%;color:green;">Erreur, sujet non trouvé</h5>';
 						break;
 				}
 			}

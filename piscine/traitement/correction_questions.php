@@ -44,8 +44,12 @@
     			}
 
     		}
+            header("Location: ../mesNotes.php");
+            exit;
     	}
     }
+    header("Location: ../accueil.php");
+    exit;
 
     
     $bdd->close();	
