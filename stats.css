@@ -1,0 +1,15 @@
+.barre{
+	display:none;
+}
+
+.barre2{
+	display:none;
+}
+
+.line{
+	display: none;
+}
+
+:target{
+	display:block;
+}
