@@ -1,0 +1,22 @@
+.espacement{
+	padding-top:2%;
+	padding-bottom:2%;
+}
+
+form{
+	margin-block-end:0;
+}
+
+
+.titre{
+	background-color:#009DE0;
+	color:white;
+	padding-top:1%;
+	padding-bottom:1%;	
+}
+
+.donnee{
+	border-left: solid #009DE0;
+	padding-top:1%;
+	padding-bottom: 1%;
+}

@@ -1,0 +1,56 @@
+.contenu div div {
+	display:none;
+
+}
+.contenu{
+	/*border:thick double #32a1ce;*/
+	height: auto;
+	min-height:30rem;
+	padding-top:2%;
+}
+
+.contenu div div:target ,.contenu div div:target div {
+	display:block;
+}
+
+.btn {
+	text-align:left;
+}
+
+.choixGrp {
+	border-left:solid 0.5px black;
+	border-top:solid 0.5px black;
+	border-bottom:solid 0.5px black;
+	overflow-y:scroll;
+	height:100px;
+	background-color: #D6D6D6;
+	border-bottom-left-radius: 5px 5px;
+	border-top-left-radius: 5px 5px;
+}
+
+.repQuest {
+	border:solid #009DE0;
+
+	height:20rem;
+	overflow-y: scroll;
+}
+
+.questions{
+	width:auto;
+}
+
+@media only screen and (min-width:800px) {
+		.questions{
+			padding-left:5%;
+		}
+	}
+
+@media only screen and (max-width:800px) {
+	.repQuest{
+		text-align:center;
+	}
+}
+
+.bordure {
+	border:solid #009DE0;
+}

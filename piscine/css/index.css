@@ -1,0 +1,28 @@
+.header {
+	background-color: #009DE0;
+}
+
+.titre {
+	color:white;
+}
+
+p {
+	font-size:1.5em;
+}
+
+.tout {
+	padding-top:5%;
+}
+
+.form-check-inline{
+	margin-right: 1rem;
+}
+
+
+
+@media only screen and (max-width:800px) {
+	.form-check-inline{
+		margin-right: 10%;
+		margin-left:10%;
+	}
+}
