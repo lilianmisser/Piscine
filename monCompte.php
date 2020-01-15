@@ -133,17 +133,17 @@
 
 							if($errNom==1){
 								$nomRequis='block';
-							}elseif($errNom==2){
-								$nomTropLong='block';
 							}elseif($errNom==3){
+								$nomTropLong='block';
+							}elseif($errNom==2){
 								$nomCS='block';
 							}
 							if($errPrenom==1){
 								$prenomRequis='block';
-							}elseif($errPrenom==2){
-								$prenomTropLong='block';
 							}elseif($errPrenom==3){
-								$PrenomCS='block';
+								$prenomTropLong='block';
+							}elseif($errPrenom==2){
+								$prenomCS='block';
 							}
 							if($errMail==1){
 								$mailRequis='block';
