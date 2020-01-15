@@ -45,7 +45,7 @@
 			$requete->bind_param("s",$_POST["specialite_et_annee"]);
 			$requete->execute();
 			$donnees_promo = get_result($requete);
-			$title = "Evolution des moyennes de la promotion ".$_POST["specialite_et_annee"]." par date de session";
+			$title = "Evolution des moyennes de la promotion ".$_POST["specialite_et_annee"]." par session";
 		}
 	}
 	else{
@@ -53,7 +53,7 @@
 			$requete->bind_param("si",$_POST["specialite_et_annee"],strval($_POST["groupe_niveau"]));
 			$requete->execute();
 			$donnees_promo = get_result($requete);
-			$title = "Evolution des moyennes du groupe ".$_POST["groupe_niveau"]." de la promotion ".$_POST["specialite_et_annee"]." par date de session";
+			$title = "Evolution des moyennes du groupe ".$_POST["groupe_niveau"]." de la promotion ".$_POST["specialite_et_annee"]." par session";
 		}
 	}
 
