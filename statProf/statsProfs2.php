@@ -121,10 +121,10 @@
 		if($moyenne_eleves[$i]<785){
 			$pourcentage_en_dessous += 1;
 		}
-		if($moyenne_listening[$i]<247.5){
+		if($moyenne_listening[$i]<392.5){
 			$pourcentage_en_dessous_listening += 1;
 		}
-		if($moyenne_reading[$i]<247.5){
+		if($moyenne_reading[$i]<392.5){
 			$pourcentage_en_dessous_reading += 1;
 		}
 	}
