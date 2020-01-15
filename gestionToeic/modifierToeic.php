@@ -135,10 +135,10 @@
 	if(isset($_GET["Modif"])){
 		switch($_GET["Modif"]){
 			case 1:
-				echo '<h4 style="padding-bottom:2%;color:green;">Session modifiée !</h4>';
+				echo '<h4 style="padding-bottom:2%;margin-left:2%;color:green;">Sujet modifiée !</h4>';
 				break;
 			case 0:
-				echo '<h4 style="padding-bottom:2%;color:green;">Erreur sur les questions sélectionnées, veuillez recommencer</h4>';
+				echo '<h4 style="padding-bottom:2%;margin-left:2%;color:green;">Erreur sur les questions sélectionnées, veuillez recommencer</h4>';
 				break;
 		}
 	}
