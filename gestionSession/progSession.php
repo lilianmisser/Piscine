@@ -1,3 +1,4 @@
+
 <?php
 	$errSujet='none';
 	$errDate='none';
@@ -26,61 +27,81 @@
 	}
 ?>
 <div class=row>
-	<div class=col-lg-7>
+	<div class=col-lg-8>
 		<form class=needs-validation method="post" action= "traitement/traitement_newsession.php">
-			<div class="form-group">
-				<label for="sujet">Sujet</label>
-				<select type=text name="nom_sujet" class="custom-select" id="sujet">
-					<option selected disabled value=""></option>
-					<?php
-					for($i=0; $i < count($listeSujet) ; $i++){
-						echo '<option value="',$listeSujet[$i]["nom_sujet"],'">',$listeSujet[$i]["nom_sujet"],'</option>';
-					}
-					?>
-				</select>
-				<div class=invalid-feedback style="display:<?php echo($errSujet); ?>;">
-					Choisissez un sujet
-				</div>
-			</div>
 
-			<div class="form-group">									
-				<label for=date>Date de la session</label>
-				<?php
-				$dateMin = date("Y-m-d");
-				$mois=date("m");
-				if($mois<9){
-					$anneeMax=date("Y");
-				}else{
-					$anneeMax=date("Y")+1;
-				}														
-				echo '<input class="form-control" id=date type ="date" min = "',$dateMin,'" max = "',$anneeMax,'-08-31" name = "date_session">';
-				?>
-				<div class=invalid-feedback style="display:<?php echo($errDate); ?>;">
-					Choisissez une date
+				<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
+					<?php echo 'Sujet'; ?>
 				</div>
-				<div class=invalid-feedback style="display:<?php echo($errDate2); ?>;">
-					Choisissez une date postérieure à aujourd'hui
+				<div class="bordure">
+					<br>
+					<div class="form-group" style="padding-bottom:5px;padding-left:5%;padding-right:5%;">
+						<select type=text name="nom_sujet" class="custom-select" id="sujet">
+							<option selected disabled value=""></option>
+							<?php
+							for($i=0; $i < count($listeSujet) ; $i++){
+								echo '<option value="',$listeSujet[$i]["nom_sujet"],'">',$listeSujet[$i]["nom_sujet"],'</option>';
+							}
+							?>
+						</select>
+						<div class=invalid-feedback style="display:<?php echo($errSujet); ?>;">
+							Choisissez un sujet
+						</div>
+					</div>
+				</div>
+
+			<div class="banniere" style="padding-left:5%;">	
+				<?php echo 'Date de la session'; ?>
+			</div>
+			<div class="bordure">
+				<br>
+				<div class="form-group" style="padding-bottom:5px;padding-left:5%;padding-right:5%;">									
+					
+					<?php
+					$dateMin = date("Y-m-d");
+					$mois=date("m");
+					if($mois<9){
+						$anneeMax=date("Y");
+					}else{
+						$anneeMax=date("Y")+1;
+					}														
+					echo '<input class="form-control" id=date type ="date" min = "',$dateMin,'" max = "',$anneeMax,'-08-31" name = "date_session">';
+					?>
+					<div class=invalid-feedback style="display:<?php echo($errDate); ?>;">
+						Choisissez une date
+					</div>
+					<div class=invalid-feedback style="display:<?php echo($errDate2); ?>;">
+						Choisissez une date postérieure à aujourd'hui
+					</div>
 				</div>
 			</div>
 			
-			<div class="form-group">
-				<label>Cochez les groupes qui vont participer à cette session</label>
-				<div class="choixGrp">	
-					<?php 
-						for($i=0; $i < count($tab) ; $i++){
-							echo '<div class="form-check">
-							<input type="checkbox" id="grp',$i,'" name="groupes[]" class="form-check-input" value="',strval($tab[$i]["id_grp"]),'">
-							<label class="form-check-label" for="grp',$i,'">',$tab[$i]["id_spe"]."-".strval($tab[$i]["num_grp"]),'</label>
-							</div>';
-						}
-					?>
-					
-				</div>
-				<div class=invalid-feedback style="display:<?php echo($errGrp); ?>;">
-						Choisissez au moins 1 groupe
+			<div class="banniere" style="padding-left:5%;">	
+				<?php echo 'Veuillez cocher les groupes qui vont participer à cette session :'; ?>
+			</div>
+			<div class="bordure" style="border-radius: 0rem 0rem 0.25rem 0.25rem;">
+				<br>
+				<div class="form-group" style="padding-bottom:5px;padding-left:5%;padding-right:5%;">
+					<div class="choixGrp">	
+						<?php 
+							for($i=0; $i < count($tab) ; $i++){
+								echo '<div class="form-check" style="padding-left:7%;">
+								<input type="checkbox" id="grp',$i,'" name="groupes[]" class="form-check-input" value="',strval($tab[$i]["id_grp"]),'">
+								<label class="form-check-label" for="grp',$i,'">',$tab[$i]["id_spe"]."-".strval($tab[$i]["num_grp"]),'</label>
+								</div>';
+							}
+						?>
+						
+					</div>
+					<div class=invalid-feedback style="display:<?php echo($errGrp); ?>;">
+							Choisissez au moins 1 groupe
+					</div>
+					<br>
+					<div class="text-center">
+						<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
+					</div>
 				</div>
 			</div>
-			<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
 		</form>
 		<h4 style='padding-top:5%;color:green;display:<?php echo($success); ?>'>Session programmée !</h4>
 	</div>
