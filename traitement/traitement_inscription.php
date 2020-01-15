@@ -36,14 +36,14 @@
 			}
 		}
 
-		if ($errNom!=1 && preg_match('/^[A-Z][A-Za-z\é\è\ê\-]+$/',$_POST['nom'])){
+		if ($errNom!=1 && !preg_match('/^[A-Z][A-Za-z\é\è\ê\-]+$/',$_POST['nom'])){
 		    $errNom=2;
 		}
 		elseif ($errNom!=1 && strlen($_POST['nom']) > 20){
 		    $errNom=3;
 		}
 
-		if ($errPrenom!=1 && preg_match('/^[A-Z][A-Za-z\é\è\ê\-]+$/',$_POST['prenom'])){
+		if ($errPrenom!=1 && !preg_match('/^[A-Z][A-Za-z\é\è\ê\-]+$/',$_POST['prenom'])){
 		    $errPrenom=2;
 		}
 		elseif ($errPrenom!=1 && strlen($_POST['prenom']) > 20){
