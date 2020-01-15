@@ -182,15 +182,18 @@
 					data: notes_js,	
 					backgroundColor: border,
 					hoverBorderWidth:2,
-					hoverBorderColor:'black'
+					hoverBorderColor:'black',
+					order : 2
 
 					},
 					{
 						label:"Barême validation",
 						data: bareme_min,
-						backgroundColor: "rgba(115, 101, 152, 1)",
+						borderColor: "rgba(139,0,0,0.8)",
 						hoverBorderWidth:2,
 						hoverBorderColor:'black',
+						backgroundColor : 'transparent',
+						type : 'line'
 					}]
 			},
 			options:{	
@@ -208,7 +211,8 @@
 			        	stacked: false,
 			            display: true,
 			            ticks: {
-			                beginAtZero: true,
+			                suggestedMin:0,
+				    		suggestedMax:990
 			           	}
 		        	}],
 		        	xAxes: [{
@@ -267,7 +271,8 @@
 			        	stacked: true,
 			            display: true,
 			            ticks: {
-			                beginAtZero: true,
+			                suggestedMin:0,
+				    		suggestedMax:990
 			           	}
 		        	}],
 		        	xAxes: [{
@@ -322,7 +327,8 @@
 			        	stacked: false,
 			            display: true,
 			            ticks: {
-			                beginAtZero: true,
+			                suggestedMin:0,
+				    		suggestedMax:990
 			           	}
 		        	}],
 		        	xAxes: [{
