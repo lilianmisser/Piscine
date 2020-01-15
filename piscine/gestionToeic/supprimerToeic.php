@@ -8,26 +8,24 @@
 	$bdd->close();
 	
 	echo '<div  class=container style="overflow-y:scroll;max-height:27rem;">'; ?>
+	<div class=row>
 		<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
 			<?php echo 'Choix du nom du TOEIC à modifier'; ?>
 		</div>
+	</div>
 		<?php
 		for($i=0;$i<count($tab);$i++){
-			if($i%2==0){
-				$color="#89B4DA";
-			}else{
-				$color="#53A0E3";
-			}
-			echo '<form style="padding-top:5px;padding-bottom:5px;margin-block-end:0em;background:linear-gradient(to right,',$color,',white);" method="post" action= "traitement/traitement_suppressionToeic.php">
-					<div style="display:flex;" class="row justify-content-between">
-						<div class=col-4 style="padding-left:5%;">
+			$color="#fff";
+			echo '<div class=row style="display:flex;padding-top:1%;padding-bottom:1%">';
+				echo '<div class="col-4 donnee" style="padding-left:5%;">
 							<h4>',$tab[$i]["nom_sujet"],'</h4>
 						</div>
-						<div class=col-4>
+						<div class=col-8 style="text-align: right;padding-right:5%;">
+							<form style="padding-top:5px;padding-bottom:5px;margin-block-end:0em;background:linear-gradient(to right,',$color,',white);" method="post" action= "traitement/traitement_suppressionToeic.php">
 							<button name="id_sujet" value="',$tab[$i]["id_sujet"],'" class="btn btn-danger" type="submit">Supprimer</button>
 						</div>
-					</div>
-				</form>';
+							</form>';
+			echo '</div>';
 			}
 			?>
 		</div>

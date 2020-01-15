@@ -49,7 +49,7 @@ include("traitement/getResult.php");
 				<div class="container" style="padding-top:5%;">
 					
 					<div class=row>
-						<div class="bordure" style="border-radius: 0rem 0rem 0.25rem 0.25rem;">
+						<!-- <div class="bordure" style="border-radius: 0rem 0rem 0.25rem 0.25rem;"> -->
 							<div class="col-lg-4 titre">
 								<?php echo 'Nom prénom'; ?>
 							</div>
@@ -59,7 +59,7 @@ include("traitement/getResult.php");
 							<div class="col-lg-4 titre">
 
 							</div>
-						
+						<!-- </div> -->
 					</div>
 					<?php for($i=0; $i < $_POST["compteur"]; $i++){ 
 							if($i==0 || ($_POST["grp".$i]!=$_POST["grp".($i-1)])) {
