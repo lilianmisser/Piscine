@@ -18,9 +18,6 @@ switch($page) {
   case "mesNotes.php":
     $c=' active';
     break;
-  case "liensUtiles.php":
-    $d=' active';
-    break;
   case "monCompte.php":
     $e=' active';
     break;
@@ -35,9 +32,6 @@ echo '<ul class="nav nav-tabs nav-justified">
         </li>
         <li class="nav-item">
           <a class="nav-link', $c ,'" href="mesNotes.php#mesNotes">Mes notes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link', $d ,'" href="liensUtiles.php">Liens utiles</a>
         </li>
         <li class="nav-item">
           <a class="nav-link', $e ,'" href="monCompte.php">Mon compte</a>
