@@ -10,7 +10,7 @@
 	echo '<div  class=container style="overflow-y:scroll;max-height:27rem;">'; ?>
 	<div class=row>
 		<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
-			<?php echo 'Choix du nom du TOEIC à modifier'; ?>
+			<?php echo 'Choix du nom du TOEIC à supprimer'; ?>
 		</div>
 	</div>
 		<?php
