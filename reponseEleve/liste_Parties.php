@@ -48,7 +48,7 @@
 
 		<div class="row" style="display:flex;text-align:center;">
 			<div class="form-group col-lg-6	">
-				<h4>Listening</h4>
+				<div class=banniere><h4>Listening</h4></div>
 				<div class=repQuest>
 					<?php
 						for($i=1 ; $i <= 100 ; $i++){
@@ -80,7 +80,7 @@
 			</div>
 
 			<div class="form-group col-lg-6">
-				<h4>Reading</h4>
+				<div class=banniere><h4>Reading</h4></div>
 				<div class=repQuest>
 					<?php
 						for($i=101 ; $i <= 200 ; $i++){
