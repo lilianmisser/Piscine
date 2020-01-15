@@ -35,6 +35,7 @@
 	<link rel=stylesheet href=css/bootstrap.css type=text/css>
 	<link rel=stylesheet href=css/gererToeic.css type=text/css>
 	<link rel=stylesheet href=css/format.css type=text/css>
+	<link rel=stylesheet href=css/gererUtilisateurs.css type=text/css>
 	<title>Gestion de Toeic</title>
 </head>
 <body>
