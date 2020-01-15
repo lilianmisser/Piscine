@@ -167,7 +167,7 @@
 			<div class=><?php echo($title); ?></div>
 		</div>
 		<div class=col-lg-2>
-			Note
+			Moyenne
 		</div>
 		<div class=col-lg-3>
 			Lacunes
