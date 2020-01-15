@@ -4,3 +4,33 @@
 	min-height:30rem;
 	padding-top:2%;
 }
+.barre{
+	display:none;
+}
+
+.barre2{
+	display:none;
+}
+
+.line{
+	display: none;
+}
+
+:target{
+	display:block;
+}
+
+.notes{
+	padding-top:5%;
+}
+
+.notes div{
+}
+
+.decalage{
+	padding-left:5%;
+	padding-right:0px;
+	border-bottom:solid #009DE0;
+	border-right: solid #009DE0;
+	border-left: solid #009DE0;	
+}
