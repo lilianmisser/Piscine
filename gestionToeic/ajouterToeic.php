@@ -27,20 +27,25 @@
 
 <div class="container">
 	<form method="post" action="traitement/traitement_nouveau_toeic.php">
-		<div class="form-group col-lg-6">
-			<label for="nom">Nom du sujet</label>
-			<input name=nom_sujet type="text" class="form-control" id="nom" required>
-			<div class=invalid-feedback style="display:<?php echo($errSujetAjoutUtilisee); ?>;">
-					Nom déjà utilisée
-			</div>
-			<div class=invalid-feedback style="display:<?php echo($errSujetAjoutManquant); ?>;">
-					Choisissez un nom de sujet
-			</div>
+		<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
+			<?php echo 'Nom du sujet'; ?>
 		</div>
+		<div class="bordure" style="border-radius: 0rem 0rem 0.25rem 0.25rem;">
+			<br>
+			<div class="form-group col-lg-12">
+				<input name=nom_sujet type="text" class="form-control" id="nom" required>
+				<div class=invalid-feedback style="display:<?php echo($errSujetAjoutUtilisee); ?>;">
+						Nom déjà utilisée
+				</div>
+				<div class=invalid-feedback style="display:<?php echo($errSujetAjoutManquant); ?>;">
+						Choisissez un nom de sujet
+				</div>
+			</div>
 
 		<div class="row" style="display:flex;text-align:center;">
-			<div class="form-group col-lg-6	">
-					<div class=banniere><h4>Listening</h4></div>
+			<div class="form-group col-lg-6">
+					<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Listening</h4></div>
+
 				<div class=repQuest>
 					<?php
 					if(isset($_GET["recupVal"]) && $_GET["recupVal"]==1) {
@@ -108,7 +113,7 @@
 			</div>
 
 			<div class="form-group col-lg-6">
-				<div class=banniere><h4>Reading</h4></div>
+				<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Reading</h4></div>
 				<div class=repQuest>
 					<?php
 					if(isset($_GET["recupVal"]) && $_GET["recupVal"]==1) {
@@ -178,7 +183,10 @@
 					Une réponse n'a pas été sélectionnée
 			</div>
 		</div>
-		<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
+		<div style="padding-bottom: 1%;padding-left: 1%;">
+			<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
+		</div>
+		</div>
 	</form>
 	<h4 style='padding-bottom:5%;padding-top:5%;color:green;display:<?php echo($succesAjout); ?>'>Sujet ajouté !</h4>
 </div>
