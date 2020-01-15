@@ -37,7 +37,7 @@
 							}elseif($errPrenom==3){
 								$prenomTropLong='block';
 							}elseif($errPrenom==2){
-								$PrenomCS='block';
+								$prenomCS='block';
 							}
 							if($errMail==1){
 								$mailRequis='block';
