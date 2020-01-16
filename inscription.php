@@ -1,20 +1,27 @@
 					<?php 
 						$verif=true;
+						// Gestion d'erreurs
 						if(isset($_GET["errNom"]) && isset($_GET["errPrenom"]) && isset($_GET["errMail"]) && isset($_GET["errMDP"]) && isset($_GET["errSpe"]) && isset($_GET["errGrp"])){
 							$verif=false;
+
 							$nomRequis='none';
 							$nomTropLong='none';
 							$nomCS='none';
+
 							$prenomRequis='none';
 							$prenomTropLong='none';
 							$prenomCS='none';
+
 							$mailRequis='none';
 							$mailEtud='none';
 							$mailUtilisee='none';
+
 							$mdpRequis='none';
 							$mdpTropCourt='none';
+
 							$speRequis='none';
 							$speNV='none';
+
 							$grpRequis='none';
 							$grpNV='none';
 
@@ -73,6 +80,8 @@
 					<div class=container>
 						<form class="needs-validation" method="post" action="traitement/traitement_inscription.php" novalidate>
 						<div class=form-row>
+
+							<!-- Nom et prénom -->
 							<div class="form-group col-lg-6">
 								<label for="nom">Nom</label>
 								<?php
@@ -113,6 +122,9 @@
 								</div>
 	     					</div>
 						</div>
+
+
+						<!-- Adresse mail -->
 						<div class=form-group>
 							<label for="email">Email</label>
 							<?php
@@ -139,6 +151,8 @@
 	     						}
 	     					?>
 						</div>
+
+						<!-- Mot de passe -->
 						<div class=form-group>
 							<label for="mdpInsc">Mot de passe</label>
 							<?php
@@ -163,6 +177,8 @@
 	     						?>	
 						</div>
 
+
+						<!-- Spécialité -->
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label col-form-label-sm" for="spec">Spécialité</label>
 							<?php
@@ -196,6 +212,8 @@
 								</div>
 						</div>
 
+
+						<!-- Groupe -->
 						<div class="form-group row">
 							<?php 
 								$grp1='';

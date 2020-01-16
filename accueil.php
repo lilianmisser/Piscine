@@ -1,10 +1,13 @@
 <?php
 	session_start();
+	//Si un utilisateur non connecté essaye d'accéder à la page, on le redirige sur page de connection
 	if(!(isset($_SESSION['user_id']))){
 		header("Location: index.php");
 		exit;
 	}
 	include("connectbdd.php");
+
+	//Vérification du statut du compte (administrateur ou pas)
 	if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){
 		$requete->bind_param("i",$_SESSION["user_id"]);
 		$requete->execute();
@@ -24,6 +27,8 @@
 </head>
 <body>
 	<?php
+
+	//Inclusion bandeau (bouton déconnection) et menu
 	if(!$admin){
 		include("bandeau/bandeauUti.php");
 		include("menu/menuUti.php");
@@ -39,6 +44,7 @@
 	</div>
 
 
-	<?php include("logo.php"); ?>
+	<?php //Inclusion lgo
+	 include("logo.php"); ?>
 </body>
 </html>

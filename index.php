@@ -1,6 +1,8 @@
 <?php
 	include("traitement/getResult.php");
 	include("connectbdd.php");
+
+	//Récupère la liste des spécialités dans la BDD
 	if($requete = $bdd->prepare("SELECT id_spe FROM specialite")){
 		$requete->execute();
 		$tab = get_result($requete);
@@ -20,6 +22,7 @@
 
 <body>
 	
+				<!-- Bannière titre -->
 	<div class="container-fluid header border-bottom border-top">
 		<table class=mx-auto style="height:100px;">
 			<tr>
