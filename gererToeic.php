@@ -1,10 +1,14 @@
 <?php
 	include("connectbdd.php");
 	session_start();
+
+	//Redirection si non connecté
 	if(!(isset($_SESSION['user_id']))){
 		header("Location: index.php");
 		exit;
 	}
+
+	//Vérification du statut administrateur
 	if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){
 		$requete->bind_param("i",$_SESSION["user_id"]);
 		$requete->execute();
@@ -17,11 +21,9 @@
 		exit;
 	}
 	
+	//Fonction get_result($requete)
 	include("traitement/getResult.php");
-	if($requete = $bdd->prepare("SELECT id_grp,id_spe,num_grp FROM groupe")){
-		$requete->execute();
-		$tab = get_result($requete);
-	}
+
 
 
 	$bdd->close();
@@ -45,6 +47,8 @@
 	?>
 	<div class=container>
 		<div class=row style="padding-top: 5%;">
+
+			<!-- Menu sur le côté -->
 			<div class="col-lg-3">
 				<div class="btn-group-vertical">
 					<a type="button" class="btn btn-blue" href=#z>Ajouter un TOEIC</a>
@@ -53,10 +57,12 @@
 				</div>
 			</div>
 			
+
+			<!-- Interface centrale -->
 			<div class="col contenu">
 			    <div class=container>
 				    
-
+			    	<!-- Affiche l'interface selon le bouton du menu sélectionné -->
 				    <div id="z">
 						<?php include("gestionToeic/ajouterToeic.php"); ?>
 					</div>
