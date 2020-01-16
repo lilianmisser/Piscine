@@ -1,5 +1,5 @@
 <?php
-
+//Connection à la BDD
 $bdd = new mysqli('localhost', 'root', '', 'piscine');
 
 if ($bdd->connect_error) {

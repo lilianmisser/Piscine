@@ -1,5 +1,6 @@
 <?php
 
+//Récupère le bout du lien de la page sur laquelle on se situe
 $page = basename($_SERVER["PHP_SELF"]);
 
 $a='';
@@ -23,6 +24,8 @@ switch($page) {
     break;
 }
 
+
+// Change la couleur du menu de la page active
 echo '<ul class="nav nav-tabs nav-justified">
         <li class="nav-item">
           <a class="nav-link', $a ,'" href="accueil.php">Accueil</a>

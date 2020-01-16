@@ -5,6 +5,8 @@
 		exit;
 	}
 	include("connectbdd.php");
+
+	//Vérification du statut administrateur
 	if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){
 		$requete->bind_param("i",$_SESSION["user_id"]);
 		$requete->execute();
@@ -31,8 +33,12 @@
 			include("menu/menuAdm.php");
 		}
 	?>
+
+
 	<div class="container tout" style="padding-top:5%">
 		<div class=bordure>
+
+			<!-- Changement de mot de passe -->
 			<div class=mdp id=mdp>
 				<div class=banniere>
 					Changer de mot de passe
@@ -69,11 +75,16 @@
 						?>
 				</div>
 			</div>
+
+			<!-- Changement d'adresse mail -->
 			<div class=mail id=mail>
+
 				<div class=banniere>
 					Changer d'adresse mail
 				</div>
+
 				<div class="container donnee" style="border-bottom:solid white;">
+					
 					<form method=post action=traitement/traitement_nv_mail.php>
 							<div class="form-group decalage col-lg-6">
 	    						<label for="mail">Adresse mail actuelle</label>
@@ -87,7 +98,9 @@
 	   							<button type=submit class="btn btn-blue">Valider</button>
 	   						</div>
 					</form>
+
 					<?php
+							//Cas d'erreurs
 							if(isset($_GET["chgtMail"])){
 
 								switch($_GET["chgtMail"]){
@@ -105,23 +118,31 @@
 						?>
 				</div>
 			</div>
+
+
+			<!-- On ajout la possibilité de créer un compte admnistrateur si on est sur un compte admnistrateur -->
 			<?php
 				if($admin){
 			?>
 			<div class=creerAdm id=adm>
 				<?php 
+						//Gestion d'erreurs (pareil que inscription.php mais avec les groupe et spécialité en moins)
 						$verif=true;
 						if(isset($_GET["errNom"]) && isset($_GET["errPrenom"]) && isset($_GET["errMail"]) && isset($_GET["errMDP"])) {
 							$verif=false;
+
 							$nomRequis='none';
 							$nomTropLong='none';
 							$nomCS='none';
+
 							$prenomRequis='none';
 							$prenomTropLong='none';
 							$prenomCS='none';
+
 							$mailRequis='none';
 							$mailEtud='none';
 							$mailUtilisee='none';
+
 							$mdpRequis='none';
 							$mdpTropCourt='none';
 							
@@ -163,9 +184,12 @@
 				<div class=banniere>
 					Créer un nouveau compte administrateur
 				</div>
+
 				<div class="container donnee">
 					<form class="needs-validation" method="post" action="traitement/traitement_inscription.php" novalidate>
 						
+
+						<!-- Nom et prénom -->
 						<div class="form-row decalage">
 							<div class="form-group col-lg-5">
 								<label for="nom">Nom</label>
@@ -208,6 +232,7 @@
 	     					</div>
 						</div>
 						
+						<!-- Adresse mail -->
 						<div class="form-group col-lg-10 decalage">
 							<label for="email">Email</label>
 							<?php
@@ -234,6 +259,8 @@
 	     						}
 	     					?>
 						</div>
+
+						<!-- Mot de passe -->
 						<div class="form-group col-lg-10 decalage">
 							<label for="mdpInsc">Mot de passe</label>
 							<?php
@@ -257,10 +284,13 @@
 	     						}
 	     						?>	
 						</div>
+
+						<!-- Bouton validation -->
 						<div class=decalage>
 	   							<button name=creationAdm type=submit class="btn btn-blue" value=compteAdm>Valider</button>
 	   					</div>
 	   					<?php
+	   						//Affiche message si succès 
 	   						if(isset($_GET["successAdm"]) && $_GET["successAdm"]==1){
 	   							echo '<h4 class=decalage style="padding-top:2%;padding-bottom:2%;color:green;">Compte créé !</h4>';
 	   						}
