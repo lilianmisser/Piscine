@@ -194,13 +194,15 @@
 							<div class="form-group col-lg-5">
 								<label for="nom">Nom</label>
 								<?php
+									//On remet le nom si il est valide (en cas d'erreur)
 									if(isset($_POST["nomValide"])){
 										echo '<input name=nom type="text" class="form-control" id="nom" value="',$_POST["nomValide"],'"" required>';
 									}else{
 										echo '<input name=nom type="text" class="form-control" id="nom" required>';
 									}
 								?>
-								
+
+								<!-- Cas d'erreurs -->
 	     						<div class=invalid-feedback style="display:<?php echo($nomRequis); ?>;">
 									Champs requis
 								</div>
@@ -220,6 +222,8 @@
 										echo '<input name=prenom type="text" class="form-control" id="prenom" required>';
 									}
 								?>
+
+								<!-- Cas d'erreurs -->
 	     						<div class=invalid-feedback style="display:<?php echo($prenomRequis); ?>;">
 									Champs requis
 								</div>
@@ -247,6 +251,7 @@
 	     							echo '<small id="passwordHelpBlock" class="form-text text-muted">Adresse mail universitaire requise
 	     									</small>';
 	     						}else{
+	     							//Cas d'erreurs
 	     							echo '<div class=invalid-feedback style="display:',$mailRequis,';">
 											Champs requis
 										</div>
