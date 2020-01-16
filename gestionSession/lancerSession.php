@@ -1,6 +1,7 @@
 <?php
 	include("connectbdd.php");
 	
+	//Récupère la liste des sessions programmées
 	if($requete = $bdd->prepare("SELECT * FROM sujet_toeic,session,participe,groupe WHERE session.est_en_cours=0 AND session.est_fini=0 AND session.id_sujet=sujet_toeic.id_sujet AND participe.id_session=session.id_session AND participe.id_grp=groupe.id_grp ORDER BY session.date_session")){ // on recupere les sessions existantes qui n'ont pas deja ete lancees
 		$requete->execute();
 		$session = get_result($requete);
@@ -39,6 +40,7 @@
 	?>
 </div>
 <?php
+//Message d'erreur ou de succès
 if($requete->num_rows != 0){
 	if(isset($_GET["sessionCommencee"]) && $_GET["sessionCommencee"]==1 ){
 		echo '<h4 style="padding-bottom:2%;color:green;">Session commencée !</h4>';

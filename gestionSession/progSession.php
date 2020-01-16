@@ -28,6 +28,8 @@
 	}
 ?>
 
+
+
 <div class=row>
 	<div class=col-lg-8> <!-- prend les 2/3 (8/12) de la largeur de la ligne row -->
 		<form class=needs-validation method="post" action= "traitement/traitement_newsession.php">
@@ -111,6 +113,7 @@
 				</div>
 			</div>
 		</form>
+		<!-- Message en cas de succès -->
 		<h4 style='padding-top:5%;color:green;display:<?php echo($success); ?>'>Session programmée !</h4>
 	</div>
 </div>

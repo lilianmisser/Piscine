@@ -1,6 +1,7 @@
 <?php
 	include("connectbdd.php");
 	
+	//Récupère la liste des sessions qui ont été programmées et commencées
 	if($requete = $bdd->prepare("SELECT * FROM sujet_toeic,session,participe,groupe WHERE session.est_en_cours=1 AND session.est_fini=0 AND session.id_sujet=sujet_toeic.id_sujet AND participe.id_session=session.id_session AND participe.id_grp=groupe.id_grp ORDER BY session.date_session")){ // recupere les sessions existantes qui ont ete lancees 
 		$requete->execute();
 		$session = get_result($requete);
@@ -11,8 +12,11 @@
 
 <div style="max-height:27rem;height:auto;overflow-y:scroll;">
 	<?php
+
 		if($requete->num_rows == 0){
+			//Si pas de sessions
 			echo '<h4 style="color:red;">Pas de session en cours</h4>';
+
 		}else{
 			for ($i=0;$i<count($session);$i++){ // affiche toutes les sessions lancees et propose de les supprimer
 				if($i==0){
