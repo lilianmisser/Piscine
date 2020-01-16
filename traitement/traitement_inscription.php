@@ -2,10 +2,15 @@
 	include("../connectbdd.php");
 	include("getResult.php");
 
+
+	//On récupère la liste des spécialités pour s'assurer que la spécialité envoyée par la formulaire corresponde à une spécialité de la BDD
 	if($requete = $bdd->prepare("SELECT id_spe FROM specialite")){
 		$requete->execute();
 		$tab = get_result($requete);
 	}
+
+
+	//Gestion des erreurs
 	$errNom=0;
 	$errPrenom=0;
 	$errMail=0;
@@ -13,8 +18,8 @@
 	$errMDP=0;
 	$errGrp=0;
 
-//Partie test des formulaires
 		
+		//Si champs non définis ou vides
 		if(!(isset($_POST['nom'])) || ($_POST['nom']=='' )) {
 			$errNom=1;
 		}
@@ -24,6 +29,8 @@
 		if(!(isset($_POST['mail'])) || ($_POST['mail']=='')) {
 			$errMail=1;
 		}
+
+		//Si ce n'est pas une création de compte administrateur, on vérifie le groupe et la spécialité
 		if(!isset($_POST["creationAdm"])){
 			if(!(isset($_POST['specialite_et_annee']))) {
 				$errSpe=1;
@@ -36,25 +43,31 @@
 			}
 		}
 
+
+		//Test caractères spéciaux
 		if ($errNom!=1 && !preg_match('/^[A-Za-z\é\è\ê\-]+$/',$_POST['nom'])){
 		    $errNom=2;
 		}
 		elseif ($errNom!=1 && strlen($_POST['nom']) > 20){
+			//Test longueur
 		    $errNom=3;
 		}
 
+		//Test caractères spéciaux
 		if ($errPrenom!=1 && !preg_match('/^[A-Za-z\é\è\ê\-]+$/',$_POST['prenom'])){
 		    $errPrenom=2;
 		}
 		elseif ($errPrenom!=1 && strlen($_POST['prenom']) > 20){
+			//Test longueur
 			$errPrenom=3;
 		}
 		
+		//Test longueur
 		if ($errMDP!=1 && strlen($_POST['mdp']) <= 7){
 		    $errMDP=2;
 		}
 
-
+		//On vérifie la mail selon s'il s'agit d'une création de compte administrateur ou élève
 		if(!isset($_POST["creationAdm"])){
 			if ($errMail!=1 && !preg_match("/[\w.]+@etu\.umontpellier\.fr$/",$_POST['mail'])){
 				$errMail=2;
@@ -64,6 +77,8 @@
 				$errMail=2;
 			}
 		}
+
+		//Vérification de l'unicité du mail
 		if($requete = $bdd->prepare("SELECT mail FROM compte WHERE compte.mail = ?")) {
 			$requete->bind_param("s",$_POST["mail"]);
 			$requete->execute();
@@ -73,12 +88,14 @@
 			}
 		}
 
-
+		//Si ce n'est pas une création de compte administrateur, on vérifie le groupe et la spécialité
 		if(!isset($_POST["creationAdm"])){
 			$specialite = $tab;
 			$i = 0;
 			$correspondance_specialite = false;
 			if($errSpe!=1){
+
+				//Vérification si la spécialité appartient à la BDD
 				while (!$correspondance_specialite and $i < count($specialite)){
 					if($_POST['specialite_et_annee'] == $specialite[$i]["id_spe"]){
 						$correspondance_specialite = true;
@@ -92,12 +109,13 @@
 				}
 			}
 
-
+			//Vérification s'il s'agit du groupe 1,2 ou 3
 			if ($errGrp!=1 && !($_POST["groupe_niveau"] == 1 or $_POST["groupe_niveau"] == 2 or $_POST["groupe_niveau"] == 3)){
 				$errGrp=2;
 			}
 		}
 		
+		//On envoie la formulaire des erreurs
 		if(!isset($_POST["creationAdm"])){
 			if(!($errNom==0 && $errPrenom==0 && $errMail==0 && $errSpe==0 && $errMDP==0 && $errGrp==0)){
 				 echo '<form method="post" action="../index.php?errNom=',$errNom,'&errPrenom=',$errPrenom,'&errMail=',$errMail,'&errSpe=',$errSpe,'&errMDP=',$errMDP,'&errGrp=',$errGrp,'" id="form" name="form">';
@@ -126,8 +144,8 @@
 
 			}else{
 
-	//Fin partie test formulaire
-	//Partie requete
+				
+				//Création du compte élève
 				if ($requete = $bdd->prepare('SELECT id_grp FROM groupe NATURAL JOIN specialite WHERE groupe.num_grp=? AND specialite.id_spe=?')){
 					$requete->bind_param('is', intval($_POST['groupe_niveau']) , $_POST['specialite_et_annee']);
 					$requete->execute();
@@ -144,6 +162,7 @@
 									$requete->bind_param('ii',$compteid,$groupid);
 									$requete->execute();
 									
+									//Connection automatique après l'inscription
 									echo '<form method=post action=traitement_connexion.php id=form name=form>
 												<input type=hidden name=mail value=',$_POST["mail"],'>
 												<input type=hidden name=mdp value=',$_POST["mdp"],'>
@@ -162,7 +181,10 @@
 					
 				}
 			}	
-		}elseif(isset($_POST["creationAdm"]) && $_POST["creationAdm"]=="compteAdm") { //creation du compte administrateur
+
+			//creation du compte administrateur
+		}elseif(isset($_POST["creationAdm"]) && $_POST["creationAdm"]=="compteAdm") { 
+			//Envoi du formulaire en cas d'erreur
 			if(!($errNom==0 && $errPrenom==0 && $errMail==0 && $errMDP==0)){
 				 echo '<form method="post" action="../monCompte.php?errNom=',$errNom,'&errPrenom=',$errPrenom,'&errMail=',$errMail,'&errMDP=',$errMDP,'#adm" id="form" name="form">';
 				 if($errNom==0){
@@ -183,6 +205,7 @@
 	                    </script>';
 
 			}else{
+				//On crée le compet administrateur
 				if($requete=$bdd->prepare('INSERT INTO compte VALUES (null,?,?,?,?,1)')){
 					$requete->bind_param("ssss",$_POST["nom"],$_POST["prenom"],$_POST["mail"],password_hash($_POST["mdp"],PASSWORD_DEFAULT));
 					$requete->execute();
