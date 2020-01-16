@@ -1,11 +1,11 @@
 <?php
 	include("connectbdd.php");
 	session_start();
-	if(!(isset($_SESSION['user_id']))){
-		header("Location: index.php");
+	if(!(isset($_SESSION['user_id']))){ // s'il n'y a pas de session
+		header("Location: index.php"); // redirection vers la page de connexion/inscription
 		exit;
 	}
-	if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){
+	if($requete = $bdd->prepare("SELECT est_admin FROM compte WHERE compte.id_compte = ?")){ // selectionne le booleen indiquant si l'utilisateur est administrateur ou non
 		$requete->bind_param("i",$_SESSION["user_id"]);
 		$requete->execute();
 		$requete->store_result();
@@ -19,11 +19,11 @@
 
 
 	include("traitement/getResult.php");
-	if($requete = $bdd->prepare("SELECT id_grp,id_spe,num_grp FROM groupe")){
+	if($requete = $bdd->prepare("SELECT id_grp,id_spe,num_grp FROM groupe")){ // selectionne tous les groupes d'apres les specialites (IG3-1,...)
 		$requete->execute();
 		$tab = get_result($requete);
 	}
-	if($requete = $bdd->prepare("SELECT nom_sujet FROM sujet_toeic")){
+	if($requete = $bdd->prepare("SELECT nom_sujet FROM sujet_toeic")){ // selectionne les noms des sujets de toeic (pour plus tard les proposer dans un menu deroulant)
 		$requete->execute();
 		$listeSujet = get_result($requete);
 	}
@@ -50,6 +50,7 @@
 		<div class=container>
 			<div class=row style="padding-top: 5%;">
 				<div class="col-lg-3">
+					<!-- creation du menu a onglet pour la gestion des sessions -->
 					<div class="btn-group-vertical">
 						<a type="button" class="btn btn-blue" href=#NewSession>Programmer une session</a>
 						<a type="button" class="btn btn-blue" href=#StartSession>Lancer une session</a>
@@ -59,6 +60,7 @@
 
 				<div class="col contenu">
 					<div class=container>
+						<!-- lien entre le menu a onglet et les "pages" correspondantes -->
 						<div id="NewSession">
 							<?php include("gestionSession/progSession.php"); ?>
 						</div>
