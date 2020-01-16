@@ -40,7 +40,7 @@
 	$tablListening=array(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,20,25,30,35,40,45,50,55,60,70,80,85,90,95,100,105,115,125,135,140,150,160,170,175,180,190,200,205,215,220,225,230,235,245,255,260,265,275,285,290,295,300,310,320,325,330,335,340,345,350,355,360,365,370,375,385,395,400,405,415,420,425,430,435,440,445,450,455,460,465,475,480,485,490,495,495,495,495,495,495,495,495);
 	$tablReading=array(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,10,15,20,25,30,35,40,45,55,60,65,70,75,80,85,90,95,105,115,120,125,130,135,140,145,155,160,170,175,185,195,205,210,215,220,230,240,245,250,255,260,270,275,280,285,290,295,295,300,310,315,320,325,330,335,340,345,355,360,370,375,385,390,395,400,405,415,420,425,435,440,450,455,460,470,475,485,485,490,495);
 
-
+	//On récupére les données en fonction de la promo ou de du groupe et de la promo
 
 	if($onlyspe){
 		if($requete = $bdd->prepare('SELECT compte.id_compte,nom,prenom,mail,note_sp,num_sp,id_session FROM groupe,est_de_groupe,compte,sous_partie WHERE groupe.id_spe = ? AND est_de_groupe.id_grp = groupe.id_grp AND compte.id_compte = est_de_groupe.id_compte AND sous_partie.id_compte = compte.id_compte ORDER BY id_compte,id_session,num_sp')){
@@ -88,10 +88,10 @@
 			$dernier_indice +=1;
 			$verif = $donnees_promo[$i]["id_compte"];
 		}
-		else{
+		else{	//Içi l'id de compte ne change pas donc je rajoute la note et j'indente le compteur de nb de sessions
 			$noteListening = $tablListening[$donnees_promo[$i]["note_sp"]+$donnees_promo[$i+1]["note_sp"]+$donnees_promo[$i+2]["note_sp"]+$donnees_promo[$i+3]["note_sp"]]; 
 			$noteReading =  $tablReading[$donnees_promo[$i+4]["note_sp"] + $donnees_promo[$i+5]["note_sp"] + $donnees_promo[$i+6]["note_sp"]];
-			if(empty($moyenne_eleves)){
+			if(empty($moyenne_eleves)){ // cas initial
 				array_push($moyenne_eleves,$noteListening + $noteReading);
 				array_push($moyenne_reading,$noteReading);
 				array_push($moyenne_listening,$noteListening);
@@ -207,7 +207,7 @@
 				
 				
 					<div class=col-lg-2 style="padding-left:3%;">
-						',$moyenne_eleves[$i],'
+						',round($moyenne_eleves[$i],1),'
 					</div>
 				
 				<div class=col-lg-3 style="padding-left:2%;">';
