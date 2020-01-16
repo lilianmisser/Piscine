@@ -1,7 +1,7 @@
 <?php
 	include("connectbdd.php");
 
-	if($requete = $bdd->prepare("SELECT id_sujet,nom_sujet FROM sujet_toeic ")){
+	if($requete = $bdd->prepare("SELECT id_sujet,nom_sujet FROM sujet_toeic ")){ // on selectionne les id et les noms des toeics qui existent
 		$requete->execute();
 		$tab = get_result($requete);
 	}
@@ -9,14 +9,16 @@
 	
 	echo '<div  class=container style="overflow-y:scroll;max-height:27rem;">'; ?>
 	<div class=row>
+		<!-- bandeau bleu contenant le titre ci-dessous -->
 		<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
 			<?php echo 'Choix du nom du TOEIC à supprimer'; ?>
 		</div>
 	</div>
 		<?php
 		for($i=0;$i<count($tab);$i++){
-			$color="#fff";
-			echo '<div class=row style="display:flex;padding-top:1%;padding-bottom:1%">';
+			$color="#fff"; // couleur blanche en fond de chacune des lignes ou sont ecrits le nom des toeics existants
+			echo '<div class=row style="display:flex;padding-top:1%;padding-bottom:1%">'; // display:flex permet de mettre le nom du toeic et le bouton supprimer sur la meme ligne (systeme de colonne)
+			// la classe donnee permet de faire un trait bleu a gauche d'une donnee, ici le nom d'un sujet de toeic
 				echo '<div class="col-4 donnee" style="padding-left:5%;">
 							<h4>',$tab[$i]["nom_sujet"],'</h4>
 						</div>
@@ -30,6 +32,7 @@
 			?>
 		</div>
 		<?php
+		// verifie si le sujet a bien ete supprime
 			if(isset($_GET["supp"])){
 				switch($_GET["supp"]){
 					case 1:

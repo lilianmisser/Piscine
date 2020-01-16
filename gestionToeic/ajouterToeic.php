@@ -4,8 +4,8 @@
 	$errQuest='none';
 	$succesAjout='none';
 	
-
-	if(isset($_GET["errQt"])){
+    // GESTION D'ERREUR
+	if(isset($_GET["errQt"])){ // isset retourne true si ce qu'elle contient existe et est different de NULL
 		if($_GET["errQt"]==1){
 			$errQuest='block';
 		}
@@ -27,11 +27,15 @@
 
 <div class="container">
 	<form method="post" action="traitement/traitement_nouveau_toeic.php">
+		<!-- TITRE DU SUJET -->
+		<!-- la classe banniere affiche la bande bleue contenant un titre -->
 		<div class="banniere" style="padding-left:5%;border-radius: 0.25rem 0.25rem 0rem 0rem;">	
 			<?php echo 'Nom du sujet'; ?>
 		</div>
+		<!-- la classe bordure affiche un cadre bleu, border-radius arrondit les angles du cadre -->
 		<div class="bordure" style="border-radius: 0rem 0rem 0.25rem 0.25rem;">
-			<br>
+			<br> <!-- saut de ligne -->
+			<!-- création du formulaire dans lequel on ecrit un nom pour le nouveau sujet -->
 			<div class="form-group col-lg-12">
 				<input name=nom_sujet type="text" class="form-control" id="nom" required>
 				<div class=invalid-feedback style="display:<?php echo($errSujetAjoutUtilisee); ?>;">
@@ -42,14 +46,16 @@
 				</div>
 			</div>
 
+		<!-- QUESTIONS A REMPLIR POUR LE SUJET -->
 		<div class="row" style="display:flex;text-align:center;">
+			<!-- création d'une colonne pour LISTENING prenant la moitie de l'espace (6/12) -->
 			<div class="form-group col-lg-6">
-					<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Listening</h4></div>
+					<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Listening</h4></div> <!-- titre listening dans le bandeau bleu -->
 
 				<div class=repQuest>
 					<?php
 					if(isset($_GET["recupVal"]) && $_GET["recupVal"]==1) {
-						for($i=1 ; $i <= 100 ; $i++){
+						for($i=1 ; $i <= 100 ; $i++){ // pour chanque reponse on regarde ce qui est coche
 							$a='';
 							$b='';
 							$c='';
@@ -112,6 +118,7 @@
 				</div>
 			</div>
 
+			<!-- création d'une colonne pour LISTENING prenant la moitie de l'espace (6/12) -->
 			<div class="form-group col-lg-6">
 				<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Reading</h4></div>
 				<div class=repQuest>
@@ -183,9 +190,11 @@
 					Une réponse n'a pas été sélectionnée
 			</div>
 		</div>
+		<!-- BOUTON -->
 		<div style="padding-bottom: 1%;padding-left: 1%;">
 			<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
 		</div>
+		
 		</div>
 	</form>
 	<h4 style='padding-bottom:5%;padding-top:5%;color:green;display:<?php echo($succesAjout); ?>'>Sujet ajouté !</h4>
