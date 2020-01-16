@@ -54,6 +54,8 @@
 
 				<div class=repQuest>
 					<?php
+
+					//En cas d'erreur, on récupère les questions déjà cochées pour éviter d'avoir à toit remplir de nouveau
 					if(isset($_GET["recupVal"]) && $_GET["recupVal"]==1) {
 						for($i=1 ; $i <= 100 ; $i++){ // pour chanque reponse on regarde ce qui est coche
 							$a='';
@@ -123,6 +125,8 @@
 				<div class=banniere style="border-radius: 0.25rem 0.25rem 0rem 0rem;"><h4>Reading</h4></div>
 				<div class=repQuest>
 					<?php
+
+					//Cas d'erreur
 					if(isset($_GET["recupVal"]) && $_GET["recupVal"]==1) {
 						for($i=101 ; $i <= 200 ; $i++){
 							$a='';
@@ -190,10 +194,10 @@
 					Une réponse n'a pas été sélectionnée
 			</div>
 		</div>
-		<!-- BOUTON -->
-		<div style="padding-bottom: 1%;padding-left: 1%;">
-			<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
-		</div>
+			<!-- BOUTON -->
+			<div style="padding-bottom: 1%;padding-left: 1%;">
+				<button class="btn btn-dark" type = "submit" value = "Valider">Valider</button>
+			</div>
 		
 		</div>
 	</form>
