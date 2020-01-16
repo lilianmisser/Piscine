@@ -40,7 +40,10 @@ include("traitement/getResult.php");
 
 			<!-- UNE FOIS QU'ON A CHOISI UNE SPECIALITE -->
 			<?php
-			if(isset($_POST["spe"]) && !isset($_POST["compteur"])){ // si la specialite contient 0 personne (vide/null) et si une specialite a bien ete choisie
+
+
+			//Recherche de la liste des étudiants lorsqu'on en a supprimé 1
+			if(isset($_POST["spe"]) && !isset($_POST["compteur"])){
 				echo '<script type="text/JavaScript">
                     document.getElementById("form").submit();
                     </script>';
@@ -49,6 +52,8 @@ include("traitement/getResult.php");
 
 				<div class="container" style="padding-top:5%;">
 					
+
+
 					<div class=row>
 						<!-- on fait 3 colonnes de meme taille -->
 							<div class="col-lg-4 titre">
@@ -63,7 +68,11 @@ include("traitement/getResult.php");
 						
 					</div>
 
+
+
 					<?php
+
+						//Affiche la liste des étudiants, leur mail et le formulaire pour en supprimer un
 						for($i=0; $i < $_POST["compteur"]; $i++){ 
 							// cette condition permet d'afficher une bande grise pour chaque groupe 1, 2 ou 3 de la specialite
 							if($i==0 || ($_POST["grp".$i]!=$_POST["grp".($i-1)])) {
@@ -73,12 +82,17 @@ include("traitement/getResult.php");
 							}?>
 
 							<div class="row" style="padding-top:1%;padding-bottom:1%;">
-								<div class="col-lg-4 donnee"> <!-- la classe donnee affiche un trait bleu a gauche d'une donnee, ici nom prenom -->
+
+								<!-- la classe donnee affiche un trait bleu a gauche d'une donnee, ici nom prenom -->
+								<div class="col-lg-4 donnee">
 									<?php echo strtoupper($_POST["nom".$i]),' ',$_POST["prenom".$i]; //strtoupper met le nom en maj ?> 
 								</div>
-								<div class="col-lg-4 donnee"> <!-- la classe donnee affiche un trait bleu a gauche d'une donnee, ici le mail de l'etudiant -->
+
+								<!-- la classe donnee affiche un trait bleu a gauche d'une donnee, ici le mail de l'etudiant -->
+								<div class="col-lg-4 donnee"> 
 									<?php echo ($_POST["mail".$i]); ?>
 								</div>
+
 								<!-- colonne avec le bouton supprimer -->
 								<div class="col-lg-4" style="text-align: right;">
 									<form method=post action=traitement/suppUti.php>
